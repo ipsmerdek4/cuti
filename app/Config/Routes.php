@@ -30,7 +30,14 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+//$routes->get('/', 'Home::index');
+
+
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($routes) {
+	$routes->get('/', 'Homeadmin::index',  ['filter' => 'role:Admin']);
+	$routes->get('/index', 'Homeadmin::index',  ['filter' => 'role:Admin']);
+});
+
 
 $routes->group('mazer', ['namespace' => 'App\Controllers\Mazer'], function($routes) {
 	$routes->get('/', 'Mazer::index');
