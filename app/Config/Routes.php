@@ -34,8 +34,8 @@ $routes->setAutoRoute(false);
 
 
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($routes) {
-	$routes->get('/', 'Homeadmin::index',  ['filter' => 'role:Admin']);
-	$routes->get('/index', 'Homeadmin::index',  ['filter' => 'role:Admin']);
+	$routes->get('/', 'Homeadmin::index',  ['filter' => 'role:admin']);
+	$routes->get('/index', 'Homeadmin::index',  ['filter' => 'role:admin']);
 });
 
 
