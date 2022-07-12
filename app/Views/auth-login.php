@@ -1,3 +1,8 @@
+<?= $this->extend('Layout/app') ?> 
+<?= $this->section('title') ?>
+    <title>Login</title>
+<?= $this->endSection() ?>
+<!--  -->
 <?= $this->extend('Layout/auth') ?>
 
 <?= $this->section('content') ?>

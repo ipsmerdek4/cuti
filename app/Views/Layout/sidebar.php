@@ -22,14 +22,41 @@ $uri3 = $uri[3] ?? '';
                 <li class="sidebar-title">Menu</li>
 
                 <li class="sidebar-item <?= ($uri1 == 'index') ? 'active' : '' ?> ">
-                    <a href="/mazer" class='sidebar-link'>
+                    <a href="<?=base_url()?>" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li> 
+
+                <?php if ($data['in_group'] = true) : ?>
+
+                <li class="sidebar-item <?= ($uri1 == 'musers') ? 'active' : '' ?> has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-stack"></i>
+                        <span>Manage Users</span>
+                    </a>
+                    <ul class="submenu <?= ($uri1 == 'musers') ? 'active' : '' ?>">
+                        <li class="submenu-item <?= ($uri2 == 'user') ? 'active' : '' ?>">
+                            <a href="<?=base_url('admin/musers/user')?>">User</a>
+                        </li> 
+                        <li class="submenu-item <?= ($uri2 == 'employee') ? 'active' : '' ?>">
+                            <a href="<?=base_url('admin/musers/employee')?>">Employee</a>
+                        </li> 
+                    </ul>
+                </li> 
+                
+                <?php endif; ?>  
+
+
+                <li class="sidebar-title text-primary">
+                    <hr>
+                </li>
+
+
+
                 <li class="sidebar-item ">
-                    <a href="<?= base_url('logout') ?>" class='sidebar-link'>  
-                        <span class="fa-fw select-all fas"></span>  
+                    <a href="<?= base_url('logout') ?>" class='sidebar-link text-danger'>  
+                        <span class="fa-fw select-all fas text-danger"></span>  
                         <span>Logout</span>
                     </a>
                 </li>

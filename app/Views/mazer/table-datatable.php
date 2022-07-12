@@ -279,11 +279,11 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('styles') ?>
-<link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
+<link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 <?= $this->endSection() ?>
 
 <?= $this->section('javascript') ?>
-<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script>
     // Simple Datatable
     let table1 = document.querySelector('#table1');

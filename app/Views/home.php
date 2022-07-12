@@ -1,10 +1,12 @@
-
-<?= $this->extend('Layout/app') ?>
-
+<?= $this->extend('Layout/app') ?> 
+<?= $this->section('title') ?>
+    <title><?=$data['title']?></title>
+<?= $this->endSection() ?>
+<!--  -->
+<?= $this->extend('Layout/app') ?> 
 <?= $this->section('content') ?>
 
 
-halaman HOME
-
+ <?=$data['in_group']?>
 
 <?= $this->endSection() ?>

@@ -1,3 +1,8 @@
+<?= $this->extend('Layout/app') ?> 
+<?= $this->section('title') ?>
+    <title>Auth Forgot Password</title>
+<?= $this->endSection() ?>
+<!--  -->
 <?= $this->extend('Layout/auth') ?>
 
 <?= $this->section('content') ?>

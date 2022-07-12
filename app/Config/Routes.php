@@ -30,12 +30,26 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-//$routes->get('/', 'Home::index');
+ 
+$routes->get('/', 'Home::index');
 
 
-$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($routes) {
-	$routes->get('/', 'Homeadmin::index',  ['filter' => 'role:admin']);
-	$routes->get('/index', 'Homeadmin::index',  ['filter' => 'role:admin']);
+$routes->group('admin', ['filter' => 'role:administrator', 'namespace' => 'App\Controllers\Admin'], function($routes) {
+	$routes->get('musers/user', 'Users::index' ); 
+	$routes->get('musers/vuser', 'Users::view' ); 
+
+	$routes->get('musers/user/add', 'Users::add' ); 
+	$routes->post('musers/user/add', 'Users::resource' ); 
+
+	$routes->get('musers/user/edit/(:any)', 'Users::edit/$1' ); 
+	$routes->post('musers/user/update', 'Users::update' ); 
+
+	$routes->get('musers/user/destroy/(:any)', 'Users::destroy/$1' ); 
+
+
+
+
+
 });
 
 
