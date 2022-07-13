@@ -1,8 +1,13 @@
 <?php
 $uri = service('uri')->getSegments();
+/*  
 $uri1 = $uri[1] ?? 'index';
 $uri2 = $uri[2] ?? '';
 $uri3 = $uri[3] ?? '';
+ */
+(isset($uri[0]))? $uri0 = $uri[0] : $uri0 = "";
+(isset($uri[1]))? $uri1 = $uri[1] : $uri1 = "";
+  
 ?>
 
 <div id="sidebar" class="active">
@@ -21,7 +26,7 @@ $uri3 = $uri[3] ?? '';
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item <?= ($uri1 == 'index') ? 'active' : '' ?> ">
+                <li class="sidebar-item <?= ($uri0 == '') ? 'active' : '' ?> ">
                     <a href="<?=base_url()?>" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
@@ -30,20 +35,20 @@ $uri3 = $uri[3] ?? '';
 
                 <?php if ($data['in_group'] = true) : ?>
 
-                <li class="sidebar-item <?= ($uri1 == 'musers') ? 'active' : '' ?> has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
-                        <span>Manage Users</span>
-                    </a>
-                    <ul class="submenu <?= ($uri1 == 'musers') ? 'active' : '' ?>">
-                        <li class="submenu-item <?= ($uri2 == 'user') ? 'active' : '' ?>">
-                            <a href="<?=base_url('admin/musers/user')?>">User</a>
-                        </li> 
-                        <li class="submenu-item <?= ($uri2 == 'employee') ? 'active' : '' ?>">
-                            <a href="<?=base_url('admin/musers/employee')?>">Employee</a>
-                        </li> 
-                    </ul>
-                </li> 
+                    <li class="sidebar-item <?= ($uri0 == 'musers') ? 'active' : '' ?> has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-stack"></i>
+                            <span>Manage Users</span>
+                        </a>
+                        <ul class="submenu <?= ($uri0 == 'musers') ? 'active' : '' ?>">
+                            <li class="submenu-item <?= ($uri1 == 'user') ? 'active' : '' ?>">
+                                <a href="<?=base_url('musers/user')?>">User</a>
+                            </li> 
+                            <li class="submenu-item <?= ($uri1 == 'employee') ? 'active' : '' ?>">
+                                <a href="<?=base_url('musers/employee')?>">Employee</a>
+                            </li> 
+                        </ul>
+                    </li> 
                 
                 <?php endif; ?>  
 

@@ -34,21 +34,28 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'Home::index');
 
 
-$routes->group('admin', ['filter' => 'role:administrator', 'namespace' => 'App\Controllers\Admin'], function($routes) {
-	$routes->get('musers/user', 'Users::index' ); 
-	$routes->get('musers/vuser', 'Users::view' ); 
+$routes->group('musers', ['filter' => 'role:administrator', 'namespace' => 'App\Controllers\Admin'], function($routes) {
+	$routes->get('user', 'Users::index' ); 
+	$routes->get('vuser', 'Users::view' ); 
 
-	$routes->get('musers/user/add', 'Users::add' ); 
-	$routes->post('musers/user/add', 'Users::resource' ); 
+	$routes->get('user/add', 'Users::add' ); 
+	$routes->post('user/resource', 'Users::resource' ); 
 
-	$routes->get('musers/user/edit/(:any)', 'Users::edit/$1' ); 
-	$routes->post('musers/user/update', 'Users::update' ); 
+	$routes->get('user/edit/(:any)', 'Users::edit/$1' ); 
+	$routes->post('user/update', 'Users::update' ); 
 
-	$routes->get('musers/user/destroy/(:any)', 'Users::destroy/$1' ); 
+	$routes->get('user/destroy/(:any)', 'Users::destroy/$1' ); 
 
+	/*  */
+	$routes->get('employee', 'Employee::index' );
+	$routes->get('vemployee', 'Employee::view' ); 
 
+	$routes->get('employee/add', 'Employee::add' ); 
+	$routes->post('employee/resource', 'Employee::resource' ); 
 
-
+	$routes->get('employee/edit/(:any)', 'Employee::edit/$1' ); 
+	$routes->post('employee/update', 'Employee::update' ); 
+	/*  */
 
 });
 
