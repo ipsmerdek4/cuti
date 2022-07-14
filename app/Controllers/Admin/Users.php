@@ -34,7 +34,7 @@ class Users extends BaseController
 
       $db = db_connect();
       $builder = $db->table('auth_groups_users')
-                ->select('user_id, group_id, users.id, users.email, users.username, users.active, auth_groups.name, users.created_at')
+                ->select('user_id, group_id, users.id, users.name_users, users.email, users.username, users.active, auth_groups.name, users.created_at')
                 ->join('users', 'users.id = auth_groups_users.user_id') 
                 ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
 
@@ -73,7 +73,7 @@ class Users extends BaseController
         session();
         $data = [
           'q_auth_groups' => $q_auth_groups->getResult(),
-          'title' => 'Add User &raquo; User',
+          'title' => 'Add User &raquo; Cuti Online',
           'in_group' => in_groups('administrator'),
           'validation' => \Config\Services::validation(),
         ];
@@ -87,7 +87,7 @@ class Users extends BaseController
 
     public function resource()
     {
-       
+      
  
           if (!$this->validate([
               'email_user'  => [
@@ -97,6 +97,12 @@ class Users extends BaseController
                     ]
               ],
               'username'    =>  [
+                    'ruler'   => 'required',
+                    'errors'    => [
+                          'required' => '{field} Tidak Boleh Kosong.',
+                        ]
+              ],
+              'full_name'    =>  [
                     'ruler'   => 'required',
                     'errors'    => [
                           'required' => '{field} Tidak Boleh Kosong.',
@@ -120,7 +126,8 @@ class Users extends BaseController
           }
 
 
-
+          
+          $full_name = $this->request->getVar('full_name');
           $email_user = $this->request->getVar('email_user');
           $username   = $this->request->getVar('username');
           $password   = $this->request->getVar('password');
@@ -134,7 +141,8 @@ class Users extends BaseController
           
           $data1 = [
             'id'              => $Last_id_Users,
-            'email '          => $email_user,
+            'name_users'      => $full_name,
+            'email'           => $email_user,
             'username'        => $username,
             'password_hash'   => \Myth\Auth\Password::hash($password),
             'activate_hash'   => $activate_hash,
@@ -181,22 +189,112 @@ class Users extends BaseController
 
     public function edit($id = null)
     {
+      $id_users = $id;
+    
+      $getUsers = $this->builder3->join('users', 'users.id = auth_groups_users.user_id') 
+                                ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
+                                ->where('users.id', $id_users)->get();
+
+    
       $q_auth_groups   = $this->builder->get();  // Produces: SELECT * FROM mytable
        
 
       session();
       $data = [
         'q_auth_groups' => $q_auth_groups->getResult(),
-        'title' => 'Edit User &raquo; User',
-        'in_group' => in_groups('administrator'),
-        'validation' => \Config\Services::validation(),
+        'title'         => 'Edit User &raquo; User',
+        'in_group'      => in_groups('administrator'),
+        'validation'    => \Config\Services::validation(),
+        'getusers'      => $getUsers->getResult(),
+        'ID'            => $id,
       ];
       return view('User/users_admin_edit', compact('data') );  
 
     }
 
-    public function update()
+    public function update($id = null)
     {
+      
+       
+            if (!$this->validate([
+              'email_user'  => [
+                    'ruler'   => 'required',
+                    'errors'    => [
+                          'required' => '{field} Tidak Boleh Kosong.',
+                    ]
+              ],
+              'full_name'    =>  [
+                    'ruler'   => 'required',
+                    'errors'    => [
+                          'required' => '{field} Tidak Boleh Kosong.',
+                        ]
+              ], 
+              'username'    =>  [
+                    'ruler'   => 'required',
+                    'errors'    => [
+                          'required' => '{field} Tidak Boleh Kosong.',
+                        ]
+              ], 
+              'pengguna'    =>  [
+                    'ruler'   => 'required',
+                    'errors'    => [
+                          'required' => '{field} Harus di Pilih.',
+                        ]
+              ],
+            ])) {
+              $validation = \Config\Services::validation();  
+              return redirect()->to('/musers/user/edit/'.$id)->withInput();
+            }  
+
+            $full_name  = $this->request->getVar('full_name');
+            $email_user = $this->request->getVar('email_user');
+            $username   = $this->request->getVar('username');
+            $pengguna   = $this->request->getVar('pengguna'); 
+
+
+            $getUsers = $this->builder3->join('users', 'users.id = auth_groups_users.user_id') 
+                                ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
+                                ->where('users.id', $id)->get();
+
+            $group_id = $getUsers->getResult()[0]->group_id; 
+
+             $chkpass = $this->request->getVar('chkpass');
+             if ($chkpass == "on") {
+                      $password   = $this->request->getVar('password'); 
+                      $data1 = [ 
+                        'email'           => $email_user,
+                        'name_users'      => $full_name,
+                        'username'        => $username,
+                        'password_hash'   => \Myth\Auth\Password::hash($password), 
+                        'updated_at'      => date("Y-m-d H:s:i"), 
+                      ]; 
+                      
+                      $this->builder2->update($data1, 'id = '.$id);
+
+
+                      $this->builder3->update(['group_id' => $pengguna], 'group_id = '.$group_id);
+
+
+             }else{
+                    $data2 = [ 
+                      'email '          => $email_user,
+                      'name_users'      => $full_name,
+                      'username'        => $username, 
+                      'updated_at'      => date("Y-m-d H:s:i"), 
+                    ]; 
+
+                    $this->builder2->update($data2, 'id = '.$id);
+
+                    $this->builder3->update(['group_id' => $pengguna], 'group_id = '.$group_id);
+
+             } 
+              
+   
+             session()->setFlashdata('msg', 'User Berhasil di Perbaharui.');
+             return redirect()->to(base_url('/musers/user'));
+   
+
+
 
     }
 

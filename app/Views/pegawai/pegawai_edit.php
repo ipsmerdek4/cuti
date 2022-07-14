@@ -16,7 +16,7 @@ use Config\Validation;
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Add User</h3>
+                <h3>Edit Employee</h3>
                 <p class="text-subtitle text-muted">Silahkan isi Form dibawah ini dengan sebenar-benarnya.</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -24,13 +24,12 @@ use Config\Validation;
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="<?=base_url()?>/musers/user">Manage Users</a></li>
-                        <li class="breadcrumb-item">Add User</li>
+                        <li class="breadcrumb-item">Edit Employee</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
-
 
 
 
@@ -40,88 +39,84 @@ use Config\Validation;
                     <div class="card"> 
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="<?=base_url()?>/musers/user/resource" method="POST">
+                                <form class="form form-horizontal" action="<?=base_url()?>/musers/employee/update/<?=$data['ID']?>" method="POST">
                                     <div class="row">
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Email</label>
+                                                <label>Full Name</label>
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="email" class="form-control  <?= ($data['validation']->hasError('email_user')) ? 'is-invalid' :'' ?>" placeholder="Email" value="<?=old('email_user')?>"  name="email_user">
+                                                        <input type="text" class="form-control  <?= ($data['validation']->hasError('name_employee')) ? 'is-invalid' :'' ?>" placeholder="Nama Lengkap" value="<?=$data['getemployee'][0]->full_name_pegawai ?>"  name="name_employee">
                                                         <div class="form-control-icon pb-1 mb-1">
-                                                            <i class="bi bi-envelope"></i>
+                                                            <i class="bi bi-person"></i>
                                                         </div>
                                                     </div>
                                                     <small class="text-danger text-capitalize"> 
-                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('email_user')) ?>
+                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('name_employee')) ?>
                                                     </small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Full Name</label>
+                                                <label>Number HP/WhatsApp</label>
                                                 <div class="form-group has-icon-left ">
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control <?= ($data['validation']->hasError('full_name')) ? 'is-invalid' :'' ?>" placeholder="Full Name" value="<?=old('full_name')?>"  name="full_name">
+                                                        <input type="text" class="form-control <?= ($data['validation']->hasError('number_employee')) ? 'is-invalid' :'' ?>" placeholder="+62 Number" value="<?=$data['getemployee'][0]->number_pegawai ?>"  name="number_employee">
                                                         <div class="form-control-icon pb-1 mb-1">
-                                                            <i class="bi bi-person"></i>
+                                                            <i class="bi bi-phone-fill"></i>
                                                         </div>
                                                     </div>
                                                     <small class="text-danger text-capitalize "> 
-                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('full_name')) ?>
+                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('number_employee')) ?>
                                                     </small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Username</label>
+                                                <label>Jabatan</label>
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control <?= ($data['validation']->hasError('username')) ? 'is-invalid' :'' ?>" placeholder="Username" value="<?=old('username')?>"  name="username">
+                                                        <input type="text" class="form-control <?= ($data['validation']->hasError('jabatan_employee')) ? 'is-invalid' :'' ?>" placeholder="Jabatan (Pegawai)" value="<?=$data['getemployee'][0]->jabatan_pegawai ?>"  name="jabatan_employee">
                                                         <div class="form-control-icon pb-1 mb-1">
-                                                            <i class="bi bi-person"></i>
+                                                            <i class="bi bi-bag-fill"></i>
                                                         </div>
                                                     </div>
                                                     <small class="text-danger text-capitalize"> 
-                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('username')) ?>
+                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('jabatan_employee')) ?>
                                                     </small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Password</label>
-                                                <div class="form-group has-icon-left">
-                                                    <div class="position-relative">
-                                                        <input type="text" class="form-control  <?= ($data['validation']->hasError('password')) ? 'is-invalid' :'' ?>" placeholder="Password" name="password">
-                                                        <div class="form-control-icon pb-1 mb-1">
-                                                            <i class="bi bi-lock"></i>
-                                                        </div>
-                                                    </div>
-                                                    <small class="text-danger text-capitalize"> 
-                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('password')) ?>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label>Pengguna</label>
+                                                <label>Role Login</label>
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative"> 
-                                                        <select name="pengguna" class="form-select  <?= ($data['validation']->hasError('pengguna')) ? 'is-invalid' :'' ?>">
-                                                            <option value="">~ Pilih Level Pengguna</option>
-                                                            <?php foreach ($data['q_auth_groups'] as $value) : ?> 
-                                                                <option value="<?=$value->id?>" <?= (old('pengguna') == $value->id) ? 'selected' : '' ?>><?=$value->description?></option>
+                                                        <select name="pengguna_employee" class="form-select  <?= ($data['validation']->hasError('pengguna_employee')) ? 'is-invalid' :'' ?>">
+                                                            <option value="">&raquo; Pilih Nama Pengguna</option>
+                                                            <?php foreach ($data['get_user'] as $value) : ?> 
+                                                                <?php  if ($value->name_users != "admin") : ?>
+                                                                    <option value="<?=$value->id?>" <?= ($data['getemployee'][0]->id_user == $value->id) ? 'selected' : '' ?> > &raquo; <?=$value->name_users?></option>
+                                                                <?php endif; ?>
                                                             <?php endforeach;?>
                                                         </select> 
+                                                        
                                                     </div> 
                                                     <small class="text-danger text-capitalize"> 
-                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('pengguna')) ?>
+                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('pengguna_employee')) ?>
                                                     </small>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label>Alamat</label> 
+                                                <textarea name="alamat_employee" id="" class="form-control <?= ($data['validation']->hasError('alamat_employee')) ? 'is-invalid' :'' ?>" cols="10" rows="4" placeholder="Alamat Lengkap"><?=$data['getemployee'][0]->alamat_pegawai ?></textarea>
+                                                <small class="text-danger text-capitalize">  
+                                                    <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('alamat_employee')) ?>
+                                                </small> 
                                             </div>
                                         </div> 
                                         <hr class="mt-5 border-top border-primary">
@@ -141,7 +136,14 @@ use Config\Validation;
             </div>
         </section>
 
+
+
+
+
+
+
  
+    
 
 
 </div>
@@ -156,10 +158,12 @@ use Config\Validation;
 
 <!--  -->
 <?= $this->section('javascript') ?>  
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.min.js"></script>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.min.js"></script>
 <script>  
- 
+
+        
        
             <?php if (!empty(session()->getFlashdata('error'))) : ?>    
             Swal.fire({
@@ -175,7 +179,21 @@ use Config\Validation;
                         icon: 'success', 
                     });
             <?php endif; ?> 
-                                                         
+                                  
+            
+
+            $( "#chkpass" ).change(function() {
+                var $input = $( this );
+                if ($input.prop( "checked" ) == true) { 
+                    $(".passhow").show();
+                } else { 
+                    $(".passhow").hide();
+                }  
+            }).change();
+            
+ 
+            
+ 
            
 </script>
 

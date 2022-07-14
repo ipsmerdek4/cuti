@@ -42,7 +42,7 @@ $routes->group('musers', ['filter' => 'role:administrator', 'namespace' => 'App\
 	$routes->post('user/resource', 'Users::resource' ); 
 
 	$routes->get('user/edit/(:any)', 'Users::edit/$1' ); 
-	$routes->post('user/update', 'Users::update' ); 
+	$routes->post('user/update/(:any)', 'Users::update/$1' ); 
 
 	$routes->get('user/destroy/(:any)', 'Users::destroy/$1' ); 
 
@@ -54,7 +54,10 @@ $routes->group('musers', ['filter' => 'role:administrator', 'namespace' => 'App\
 	$routes->post('employee/resource', 'Employee::resource' ); 
 
 	$routes->get('employee/edit/(:any)', 'Employee::edit/$1' ); 
-	$routes->post('employee/update', 'Employee::update' ); 
+	$routes->post('employee/update/(:any)', 'Employee::updates/$1' ); 
+
+	$routes->get('employee/destroy/(:any)', 'Employee::destroy/$1' ); 
+
 	/*  */
 
 });

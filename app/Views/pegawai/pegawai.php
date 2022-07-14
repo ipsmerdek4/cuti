@@ -20,7 +20,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
                         <li class="breadcrumb-item">Manage Users</li>
-                        <li class="breadcrumb-item">User</li>
+                        <li class="breadcrumb-item">Employee</li>
                     </ol>
                 </nav>
             </div>
@@ -35,18 +35,16 @@
                     <div class="card-content">
                         <div class="card-body">
                             
-                            <a href="<?=base_url()?>/musers/user/add" class="btn btn-primary pt-2 mb-4"><i class="bi bi-person-plus "></i> <span>User</span></a>
+                            <a href="<?=base_url()?>/musers/employee/add" class="btn btn-primary pt-2 mb-4"><i class="bi bi-person-plus "></i> <span>Employee</span></a>
                         
                             <table id="tableSO" class="table table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Username</th>
-                                        <th>Status</th>
-                                        <th>Role</th>
-                                        <th>Create</th>
+                                        <th>Name Employee</th> 
+                                        <th>Number</th>
+                                        <th>Jabatan</th>
+                                        <th>Alamat</th>
                                         <th>opsi</th>
                                     </tr>
                                 </thead>
@@ -109,7 +107,7 @@
                 serverSide: true,
                 responsive: true,
                 order: [], //init datatable not ordering
-                ajax: "vuser", 
+                ajax: "vemployee", 
                 columnDefs: [
                     { targets: 0, orderable: false, className: "text-center"},  
                     { targets: 1, className: "text-center"},
@@ -125,7 +123,7 @@
 
 
 
-        $("#tableSO").on("click", "#deleteuser", function (e) {
+        $("#tableSO").on("click", "#delete", function (e) {
                 e.preventDefault();
                 const data = $(this).data("data"); 
                 const id = $(this).data("id"); 
@@ -135,7 +133,7 @@
                             html:
                                 "<div class='' style='font-size:15px;'>" +
                                 "Are you sure, <b>Delete</b> this data?<br><br>" +
-                                "<b>[ Email => " +  data + " ]</b><br>" +  
+                                "<b>[ Nama => " +  data + " ]</b><br>" +  
                                 "</div>",
                             icon: "info",
                             focusCancel: true,
@@ -149,7 +147,7 @@
                             },
                             }).then((result) => {
                             if (result.value) {
-                                document.location.href = '/musers/user/destroy/' + id;
+                                document.location.href = '/musers/employee/destroy/' + id;
                             }
                             });
  
