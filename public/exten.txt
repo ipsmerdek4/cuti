@@ -1,0 +1,2 @@
+$ [sudo] yarn global add grunt-cli
+$ yarn install

@@ -13,17 +13,20 @@ $uri3 = $uri[3] ?? '';
 <div id="sidebar" class="active">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header">
-            <div class="d-flex justify-content-between">
-                <div class="logo">
-                    <a href="index.html"><img src="/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
-                </div>
+            <div class="d-flex justify-content-center ">
+                <div class="logo text-center">
+                    <a href="<?=base_url()?>" >
+                        <img src="<?=base_url()?>/assets/images/logo.png" alt="Logo" style="width:150px; height: 100px;">
+                    </a> 
+                    <h5 style="font-size: 10px;">Biro Perekonomian dan Administrasi<br>Pembangunan Setda Provinsi Bali</h5>
+                </div> 
                 <div class="toggler">
                     <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                 </div>
             </div>
         </div>
         <div class="sidebar-menu">
-            <ul class="menu">
+            <ul class="menu mt-0">
                 <li class="sidebar-title">Menu</li>
 
                 <li class="sidebar-item <?= ($uri0 == '') ? 'active' : '' ?> ">
@@ -51,6 +54,21 @@ $uri3 = $uri[3] ?? '';
                     </li> 
                 
                 <?php endif; ?>  
+
+                <li class="sidebar-item <?= ($uri0 == 'mcuti') ? 'active' : '' ?> ">
+                    <a href="<?=base_url()?>/mcuti" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Manage Cuti</span>
+                    </a>
+                </li> 
+
+                <li class="sidebar-item <?= ($uri0 == '') ? 'active' : '' ?> ">
+                    <a href="<?=base_url()?>" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Manage Cuti</span>
+                    </a>
+                </li> 
+
 
 
                 <li class="sidebar-title text-primary">

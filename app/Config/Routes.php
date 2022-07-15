@@ -63,6 +63,18 @@ $routes->group('musers', ['filter' => 'role:administrator', 'namespace' => 'App\
 });
 
 
+$routes->get('mcuti', 'Cuti::index', ['filter' => 'role:administrator']);
+$routes->get('mcuti/vcuti', 'Cuti::view', ['filter' => 'role:administrator'] ); 
+
+$routes->get('mcuti/add', 'Cuti::add', ['filter' => 'role:administrator']); 
+$routes->post('mcuti/resource', 'Cuti::resource' ); 
+
+
+$routes->post('mcuti/categori/add', 'Cuti::categori_resource', ['filter' => 'role:administrator']); 
+$routes->post('mcuti/categori/edit', 'Cuti::categori_update', ['filter' => 'role:administrator']); 
+$routes->post('mcuti/categori/view', 'Cuti::categori_view', ['filter' => 'role:administrator']); 
+
+
 $routes->group('mazer', ['namespace' => 'App\Controllers\Mazer'], function($routes) {
 	$routes->get('/', 'Mazer::index');
 	$routes->get('table', 'Table::index');

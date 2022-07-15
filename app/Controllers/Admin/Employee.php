@@ -19,10 +19,10 @@ class Employee extends BaseController
     {  
            
       $data = [
-        'title' => 'Manage Users &raquo; Employee',
-        'in_group' => in_groups('administrator'),
+                        'title' => 'Manage Users &raquo; Employee',
+                        'in_group' => in_groups('administrator'),
 		  ]; 
-		  return view('pegawai/pegawai', compact('data'));  
+      return view('pegawai/pegawai', compact('data'));  
         
     }
 
@@ -98,7 +98,7 @@ class Employee extends BaseController
                       ]
             ],
             'pengguna_employee'    =>  [
-                  'ruler'   => 'required', 'is_unique[users.id]',
+                  'ruler'   => 'required', 'is_unique[tbl_employee.id_user]',
                   'errors'    => [
                       'required'  => '{field} Harus di Pilih.', 
                       'is_unique'  => 'Role Login Sudah digunakan, Silahkan gunakan yang lain.', 
