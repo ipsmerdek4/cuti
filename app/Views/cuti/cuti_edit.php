@@ -15,8 +15,8 @@ use Config\Validation;
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
-            <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Add Cuti</h3>
+        <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Edit Cuti</h3>
                 <p class="text-subtitle text-muted">Silahkan isi Form dibawah ini dengan sebenar-benarnya.</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -24,13 +24,12 @@ use Config\Validation;
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="<?=base_url()?>/mcuti">Manage Cuti</a></li>
-                        <li class="breadcrumb-item">Add Cuti</li>
+                        <li class="breadcrumb-item">Edit Cuti</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
-
 
 
 
@@ -40,7 +39,7 @@ use Config\Validation;
                     <div class="card"> 
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="<?=base_url()?>/mcuti/resource" method="POST">
+                                <form class="form form-horizontal" action="<?=base_url()?>/mcuti/update/<?=$data['ID']?>" method="POST">
                                     <div class="row">
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
@@ -50,7 +49,7 @@ use Config\Validation;
                                                         <select name="name_employee" class="form-select  <?= ($data['validation']->hasError('name_employee')) ? 'is-invalid' :'' ?>">
                                                             <option value="">&raquo; Select Name Employee</option>
                                                             <?php foreach ($data['getEmployee'] as $value) : ?>
-                                                                    <option value="<?=$value->id_employee ?>"  <?=(old('name_employee') == $value->id_employee) ? 'selected' : ''?>  >&raquo; <?=$value->full_name_pegawai?></option>
+                                                                    <option value="<?=$value->id_employee ?>"  <?=($data['getCuti']->id_employee == $value->id_employee) ? 'selected' : ''?>  >&raquo; <?=$value->full_name_pegawai?></option>
                                                             <?php endforeach; ?>
                                                         </select>  
                                                     </div> 
@@ -68,7 +67,7 @@ use Config\Validation;
                                                         <select id="nameCategory" name="nama_Kategori" class="form-select  <?= ($data['validation']->hasError('nama_Kategori')) ? 'is-invalid' :'' ?>">
                                                             <option value="">&raquo; Select Name Categori</option>
                                                             <?php foreach ($data['getCategoriCuti'] as $value2) : ?>
-                                                                    <option value="<?=$value2->id_categori_cuti ?>" <?=(old('nama_Kategori') == $value2->id_categori_cuti ) ? 'selected' : ''?>   >&raquo; <?=$value2->nama_categori_cuti?></option>
+                                                                    <option value="<?=$value2->id_categori_cuti ?>" <?=($data['getCuti']->id_categori_cuti == $value2->id_categori_cuti ) ? 'selected' : ''?>   >&raquo; <?=$value2->nama_categori_cuti?></option>
                                                             <?php endforeach; ?>
                                                             
                                                         </select>  
@@ -84,7 +83,7 @@ use Config\Validation;
                                                 <label>Tanggal Pengajuan</label>
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative"> 
-                                                        <input type="date" class="form-control <?= ($data['validation']->hasError('tanggal_pengajuan_cuti')) ? 'is-invalid' :'' ?>" name="tanggal_pengajuan_cuti" value="<?=old('tanggal_pengajuan_cuti')?>" >
+                                                        <input type="date" class="form-control <?= ($data['validation']->hasError('tanggal_pengajuan_cuti')) ? 'is-invalid' :'' ?>" name="tanggal_pengajuan_cuti" value="<?=$data['getCuti']->tgl_pengajuan?>" >
                                                         <div class="form-control-icon pb-1 mb-1">
                                                             <i class="bi bi-calendar-check"></i>
                                                         </div> 
@@ -100,7 +99,7 @@ use Config\Validation;
                                                 <label>Lama Cuti</label>
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">  
-                                                            <input id="tgl_pengajuan" type="text" class="form-control <?= ($data['validation']->hasError('lama_cuti')) ? 'is-invalid' :'' ?>" readonly name="lama_cuti" value="<?=old('lama_cuti')?>" >
+                                                            <input id="tgl_pengajuan" type="text" class="form-control <?= ($data['validation']->hasError('lama_cuti')) ? 'is-invalid' :'' ?>" readonly name="lama_cuti" value="<?=$data['getCuti']->max_categori_cuti?> Day" >
                                                             <div class="form-control-icon pb-1 mb-1">
                                                                 <i class="bi bi-calendar-check"></i>
                                                             </div> 
@@ -114,7 +113,7 @@ use Config\Validation;
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
                                                 <label>Deskripsi</label> 
-                                                <textarea name="deskripsi_cuti"  class="form-control <?= ($data['validation']->hasError('deskripsi_cuti')) ? 'is-invalid' :'' ?>" cols="10" rows="4" placeholder="Deskripsi"><?=old('deskripsi_cuti')?></textarea>
+                                                <textarea name="deskripsi_cuti"  class="form-control <?= ($data['validation']->hasError('deskripsi_cuti')) ? 'is-invalid' :'' ?>" cols="10" rows="4" placeholder="Deskripsi"><?=$data['getCuti']->descripsi_cuti?></textarea>
                                                 <small class="text-danger text-capitalize">  
                                                     <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('deskripsi_cuti')) ?>
                                                 </small> 
@@ -137,12 +136,20 @@ use Config\Validation;
             </div>
         </section>
 
+
+
+
+
+
+
  
+    
 
 
 </div>
  
 <?= $this->endSection() ?>
+
 
 <!--  --> 
 <?= $this->section('styles') ?> 
@@ -200,5 +207,6 @@ use Config\Validation;
 
 
 <?= $this->endSection() ?>
+
 
 

@@ -33,6 +33,7 @@ $routes->setAutoRoute(false);
  
 $routes->get('/', 'Home::index');
 
+$routes->get('report', 'Report::index' );
 
 $routes->group('musers', ['filter' => 'role:administrator', 'namespace' => 'App\Controllers\Admin'], function($routes) {
 	$routes->get('user', 'Users::index' ); 
@@ -63,16 +64,24 @@ $routes->group('musers', ['filter' => 'role:administrator', 'namespace' => 'App\
 });
 
 
-$routes->get('mcuti', 'Cuti::index', ['filter' => 'role:administrator']);
-$routes->get('mcuti/vcuti', 'Cuti::view', ['filter' => 'role:administrator'] ); 
+$routes->get('mcuti', 'Cuti::index' );
+$routes->get('mcuti/vcuti', 'Cuti::view' ); 
 
-$routes->get('mcuti/add', 'Cuti::add', ['filter' => 'role:administrator']); 
+$routes->get('mcuti/add', 'Cuti::add' ); 
 $routes->post('mcuti/resource', 'Cuti::resource' ); 
+
+$routes->get('mcuti/edit/(:any)', 'Cuti::edit/$1', ['filter' => 'role:administrator'] ); 
+$routes->post('mcuti/update/(:any)', 'Cuti::updates/$1', ['filter' => 'role:administrator'] ); 
+
+
+$routes->get('mcuti/approve/(:any)', 'Cuti::approve/$1', ['filter' => 'role:administrator,kplbgn'] ); 
+
+$routes->get('mcuti/destroy/(:any)', 'Cuti::destroy/$1', ['filter' => 'role:administrator'] ); 
 
 
 $routes->post('mcuti/categori/add', 'Cuti::categori_resource', ['filter' => 'role:administrator']); 
 $routes->post('mcuti/categori/edit', 'Cuti::categori_update', ['filter' => 'role:administrator']); 
-$routes->post('mcuti/categori/view', 'Cuti::categori_view', ['filter' => 'role:administrator']); 
+$routes->post('mcuti/categori/view', 'Cuti::categori_view' ); 
 
 
 $routes->group('mazer', ['namespace' => 'App\Controllers\Mazer'], function($routes) {

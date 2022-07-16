@@ -36,7 +36,7 @@ $uri3 = $uri[3] ?? '';
                     </a>
                 </li> 
 
-                <?php if ($data['in_group'] = true) : ?>
+                <?php if (in_groups('administrator') == true) : ?>
 
                     <li class="sidebar-item <?= ($uri0 == 'musers') ? 'active' : '' ?> has-sub">
                         <a href="#" class='sidebar-link'>
@@ -62,10 +62,10 @@ $uri3 = $uri[3] ?? '';
                     </a>
                 </li> 
 
-                <li class="sidebar-item <?= ($uri0 == '') ? 'active' : '' ?> ">
-                    <a href="<?=base_url()?>" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Manage Cuti</span>
+                <li class="sidebar-item <?= ($uri0 == 'report') ? 'active' : '' ?> ">
+                    <a href="<?=base_url()?>/report" class='sidebar-link'>
+                        <i class="bi bi-file-earmark-bar-graph"></i>
+                        <span>Report Cuti</span>
                     </a>
                 </li> 
 

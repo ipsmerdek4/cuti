@@ -12,7 +12,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Manage Users</h3>
+                <h3>Manage Cuti</h3>
                 <br>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -40,10 +40,12 @@
                                     <span> Pengajuan Cuti</span>
                                 </a>
 
-                                <a href="#" class="btn btn-danger  mt-2 mt-lg-2 mb-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <i class="bi bi-newspaper"></i> 
-                                    <span> Kategori Cuti</span>
-                                </a>
+                                <?= (in_groups('administrator') == true) ? '  
+                                        <a href="#" class="btn btn-danger  mt-2 mt-lg-2 mb-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            <i class="bi bi-newspaper"></i> 
+                                            <span> Kategori Cuti</span>
+                                        </a>
+                                ' : '' ?> 
                             </div>
                             <table id="tableSO" class="table table-bordered" style="width:100%">
                                 <thead>
@@ -53,9 +55,9 @@
                                         <th>Categori Cuti</th> 
                                         <th>Tanggal Pengajuan</th> 
                                         <th>Tanggal Berakhir</th> 
-                                        <th>Descripsi</th>  
+                                        <th>Deskripsi</th>  
                                         <th>Status</th>
-                                        <th>opsi</th>
+                                        <?= (in_groups('administrator') == true) ? '<th>opsi</th>' : '' ?> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -207,9 +209,7 @@
                     });
             <?php endif; ?> 
 
-
-
-
+ 
         
         $(document).ready(function() {
             <?php if (($data['validation']->hasError('nama_categori_cuti'))||($data['validation']->hasError('max_categori_cuti'))) : ?>
@@ -247,9 +247,9 @@
                     { targets: 2, className: "text-center"},
                     { targets: 3, className: "text-center"},
                     { targets: 4, className: "text-center"},
-                    { targets: 5, className: "text-center"},
-                    { targets: 6, className: "text-center"},
+                    { targets: 5, className: "text-center"}, 
                     { targets: -1, orderable: false, className: "text-center"},  
+                    { targets: -2, orderable: false, className: "text-center"},  
                 ] 
             });
  
@@ -257,6 +257,41 @@
         });
 
 
+        
+        
+        $("#tableSO").on("click", "#approval", function (e) {
+                e.preventDefault();
+                const id = $(this).data("id");  
+                const data = $(this).data("data");  
+
+                Swal.fire({
+                            title: "Info",
+                            html:
+                                "<div class='' style='font-size:15px;'>" +
+                                "Are you sure, <b>Approve</b> this data?<br><br>" +
+                                "<b>[ Nama => " +  data + " ]</b><br>" +  
+                                "</div>",
+                            icon: "info",
+                            focusCancel: true,
+                            showCancelButton: true,
+                            cancelButtonText: "<i class='fa fa-times '></i> No",
+                            confirmButtonText: "<i class='fa fa-check'></i> Yes",
+                            buttonsStyling: false,
+                            customClass: {
+                                cancelButton: "btn btn-danger px-3",
+                                confirmButton: "btn btn-primary me-3 px-3",
+                            },
+                            }).then((result) => {
+                            if (result.value) {
+                                document.location.href = '/mcuti/approve/' + id;
+                            }
+                            });
+
+
+
+
+
+        });
 
         $("#tableSO").on("click", "#delete", function (e) {
                 e.preventDefault();
@@ -282,7 +317,7 @@
                             },
                             }).then((result) => {
                             if (result.value) {
-                                document.location.href = '/musers/employee/destroy/' + id;
+                                document.location.href = '/mcuti/destroy/' + id;
                             }
                             });
  
