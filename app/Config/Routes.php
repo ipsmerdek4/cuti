@@ -34,6 +34,8 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'Home::index');
 
 $routes->get('report', 'Report::index' );
+$routes->get('report/cetak/(:any)', 'Report::Cetak/$1' );
+
 
 $routes->group('musers', ['filter' => 'role:administrator', 'namespace' => 'App\Controllers\Admin'], function($routes) {
 	$routes->get('user', 'Users::index' ); 

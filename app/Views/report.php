@@ -41,7 +41,7 @@
                             <div class="form-group"> 
                                 <div class="form-group has-icon-left">
                                     <div class="position-relative"> 
-                                        <input type="date" class="form-control " >
+                                        <input id='getdate' type="month" class="form-control " value="<?=date("Y-m")?>" >
                                         <div class="form-control-icon pb-1 mb-1">
                                             <i class="bi bi-calendar-check"></i>
                                         </div>
@@ -51,7 +51,7 @@
 
                             <hr class="mt-5 border border-primary">
 
-                            <button class="btn btn-primary">Cetak</button>
+                            <button id="cetak" class="btn btn-primary">Cetak</button>
 
 
                         </div>
@@ -67,6 +67,41 @@
 
 
 
+
+
+
+
+<?= $this->endSection() ?>
+
+
+<!--  --> 
+<?= $this->section('styles') ?> 
+      
+
+
+
+<?= $this->endSection() ?>
+
+<!--  -->
+<?= $this->section('javascript') ?>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+
+<script>
+
+    $('#cetak').click(function (e) { 
+        e.preventDefault();
+        var getdate = $('#getdate').val();
+        if (getdate == '') {
+            getdate = "getall";
+        }
+
+        window.open("/report/cetak/" + getdate +" " );
+        
+    });
+
+</script>
 
 
 

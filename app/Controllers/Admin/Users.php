@@ -134,12 +134,13 @@ class Users extends BaseController
           $pengguna   = $this->request->getVar('pengguna');
           $activate_hash = \Myth\Auth\Password::hash($password."^*".$email_user);
 
-          $this->builder2->selectCount('id');
-          $ttlUsers = $this->builder2->get()->getResult();
+       
 
-          $Last_id_Users = ($ttlUsers[0]->id + 1)+100;
-          
-          $data1 = [
+          $Last_id_Users_P  = $this->builder2->select('id')->orderBy('id','desc')->limit(1)->get()->getResult()[0];
+          $Last_id_Users    = $Last_id_Users_P->id+1;
+
+       
+          $data1 = [ 
             'id'              => $Last_id_Users,
             'name_users'      => $full_name,
             'email'           => $email_user,
@@ -149,11 +150,11 @@ class Users extends BaseController
             'created_at'      => date("Y-m-d H:s:i"), 
           ];
 
-          $insert1 = $this->builder2->insert($data1);
- 
+          $this->builder2->insert($data1); 
+
           $data2 = [
-            'group_id '       => $pengguna,
-            'user_id  '       => $Last_id_Users, 
+            'group_id'      => $pengguna,
+            'user_id'       => $Last_id_Users, 
           ];
 
           $insert2 = $this->builder3->insert($data2);
