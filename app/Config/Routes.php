@@ -85,7 +85,7 @@ $routes->post('mcuti/categori/add', 'Cuti::categori_resource', ['filter' => 'rol
 $routes->post('mcuti/categori/edit', 'Cuti::categori_update', ['filter' => 'role:administrator']); 
 $routes->post('mcuti/categori/view', 'Cuti::categori_view' ); 
 
-
+/* 
 $routes->group('mazer', ['namespace' => 'App\Controllers\Mazer'], function($routes) {
 	$routes->get('/', 'Mazer::index');
 	$routes->get('table', 'Table::index');
@@ -187,7 +187,12 @@ $routes->group('mazer', ['namespace' => 'App\Controllers\Mazer'], function($rout
 		});
 	});
 });
+ */
 
+
+
+
+ 
 /**
  * --------------------------------------------------------------------
  * Additional Routing
