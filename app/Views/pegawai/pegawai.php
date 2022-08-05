@@ -35,7 +35,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             
-                            <a href="<?=base_url()?>/musers/employee/add" class="btn btn-primary pt-2 mb-4"><i class="bi bi-person-plus "></i> <span>Employee</span></a>
+                            <a href="<?=base_url()?>/musers/pegawai/add" class="btn btn-primary pt-2 mb-4"><i class="bi bi-person-plus "></i> <span>Employee</span></a>
                         
                             <table id="tableSO" class="table table-bordered" style="width:100%">
                                 <thead>
@@ -107,7 +107,7 @@
                 serverSide: true,
                 responsive: true,
                 order: [], //init datatable not ordering
-                ajax: "vemployee", 
+                ajax: "vpegawai", 
                 columnDefs: [
                     { targets: 0, orderable: false, className: "text-center"},  
                     { targets: 1, className: "text-center"},
@@ -147,7 +147,7 @@
                             },
                             }).then((result) => {
                             if (result.value) {
-                                document.location.href = '/musers/employee/destroy/' + id;
+                                document.location.href = '/musers/pegawai/destroy/' + id;
                             }
                             });
  

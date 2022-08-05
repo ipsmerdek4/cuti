@@ -88,28 +88,7 @@ use Config\Validation;
                                                     </small>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label>Role Login</label>
-                                                <div class="form-group has-icon-left">
-                                                    <div class="position-relative"> 
-                                                        <select name="pengguna_employee" class="form-select  <?= ($data['validation']->hasError('pengguna_employee')) ? 'is-invalid' :'' ?>">
-                                                            <option value="">&raquo; Pilih Nama Pengguna</option>
-                                                            <?php foreach ($data['get_user'] as $value) : ?> 
-                                                                <?php  if ($value->name_users != "admin") : ?>
-                                                                    <option value="<?=$value->id?>" <?= ($data['getemployee'][0]->id_user == $value->id) ? 'selected' : '' ?> > &raquo; <?=$value->name_users?></option>
-                                                                <?php endif; ?>
-                                                            <?php endforeach;?>
-                                                        </select> 
-                                                        
-                                                    </div> 
-                                                    <small class="text-danger text-capitalize"> 
-                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('pengguna_employee')) ?>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> 
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
                                                 <label>Alamat</label> 

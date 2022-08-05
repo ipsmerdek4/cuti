@@ -41,7 +41,7 @@ $routes->group('musers', ['filter' => 'role:administrator', 'namespace' => 'App\
 	$routes->get('user', 'Users::index' ); 
 	$routes->get('vuser', 'Users::view' ); 
 
-	$routes->get('user/add', 'Users::add' ); 
+	// $routes->get('user/add', 'Users::add' ); 
 	$routes->post('user/resource', 'Users::resource' ); 
 
 	$routes->get('user/edit/(:any)', 'Users::edit/$1' ); 
@@ -50,16 +50,16 @@ $routes->group('musers', ['filter' => 'role:administrator', 'namespace' => 'App\
 	$routes->get('user/destroy/(:any)', 'Users::destroy/$1' ); 
 
 	/*  */
-	$routes->get('employee', 'Employee::index' );
-	$routes->get('vemployee', 'Employee::view' ); 
+	$routes->get('pegawai', 'Employee::index' );
+	$routes->get('vpegawai', 'Employee::view' ); 
 
-	$routes->get('employee/add', 'Employee::add' ); 
-	$routes->post('employee/resource', 'Employee::resource' ); 
+	$routes->get('pegawai/add', 'Employee::add' ); 
+	$routes->post('pegawai/resource', 'Employee::resource' ); 
 
-	$routes->get('employee/edit/(:any)', 'Employee::edit/$1' ); 
-	$routes->post('employee/update/(:any)', 'Employee::updates/$1' ); 
+	$routes->get('pegawai/edit/(:any)', 'Employee::edit/$1' ); 
+	$routes->post('pegawai/update/(:any)', 'Employee::updates/$1' ); 
 
-	$routes->get('employee/destroy/(:any)', 'Employee::destroy/$1' ); 
+	$routes->get('pegawai/destroy/(:any)', 'Employee::destroy/$1' ); 
 
 	/*  */
 

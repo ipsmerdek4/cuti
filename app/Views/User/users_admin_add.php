@@ -114,7 +114,9 @@ use Config\Validation;
                                                         <select name="pengguna" class="form-select  <?= ($data['validation']->hasError('pengguna')) ? 'is-invalid' :'' ?>">
                                                             <option value="">~ Pilih Level Pengguna</option>
                                                             <?php foreach ($data['q_auth_groups'] as $value) : ?> 
-                                                                <option value="<?=$value->id?>" <?= (old('pengguna') == $value->id) ? 'selected' : '' ?>><?=$value->description?></option>
+                                                                <?php if ($value->name != 'administrator') : ?>
+                                                                    <option value="<?=$value->id?>" <?= (old('pengguna') == $value->id) ? 'selected' : '' ?>><?=$value->description?></option>
+                                                                <?php endif;?>
                                                             <?php endforeach;?>
                                                         </select> 
                                                     </div> 
@@ -124,6 +126,20 @@ use Config\Validation;
                                                 </div>
                                             </div>
                                         </div> 
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label> </label>
+                                                <div class="form-group has-icon-left">
+                                                    <div>
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" id="chkverfikasi" name="chkverfikasi">
+                                                            <label class="form-check-label" for="flexSwitchCheckDefault">Hidupkan atau Matikan Verifikasi Email</label>
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                            </div>
+                                        </div> 
+
                                         <hr class="mt-5 border-top border-primary">
                                         <div class="col-12 row "> 
                                             <div class="col-12">

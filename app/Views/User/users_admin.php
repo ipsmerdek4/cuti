@@ -35,19 +35,19 @@
                     <div class="card-content">
                         <div class="card-body">
                             
-                            <a href="<?=base_url()?>/musers/user/add" class="btn btn-primary pt-2 mb-4"><i class="bi bi-person-plus "></i> <span>User</span></a>
+                            <!-- <a href="<?=base_url()?>/musers/user/add" class="btn btn-primary pt-2 mb-4"><i class="bi bi-person-plus "></i> <span>User</span></a> -->
                         
                             <table id="tableSO" class="table table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name</th>
+                                        <th>Panggilan</th>
                                         <th>Email</th>
                                         <th>Username</th>
                                         <th>Status</th>
                                         <th>Role</th>
-                                        <th>Create</th>
-                                        <th>opsi</th>
+                                        <th>Tanggal Membuat</th>
+                                        <th>Opsi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -47,8 +47,8 @@ $uri3 = $uri[3] ?? '';
                             <li class="submenu-item <?= ($uri1 == 'user') ? 'active' : '' ?>">
                                 <a href="<?=base_url('musers/user')?>">User</a>
                             </li> 
-                            <li class="submenu-item <?= ($uri1 == 'employee') ? 'active' : '' ?>">
-                                <a href="<?=base_url('musers/employee')?>">Employee</a>
+                            <li class="submenu-item <?= ($uri1 == 'pegawai') ? 'active' : '' ?>">
+                                <a href="<?=base_url('musers/pegawai')?>">Pegawai</a>
                             </li> 
                         </ul>
                     </li> 

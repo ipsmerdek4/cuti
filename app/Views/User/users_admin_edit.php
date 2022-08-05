@@ -116,12 +116,18 @@ use Config\Validation;
                                             <div class="form-group">
                                                 <label>Pengguna</label>
                                                 <div class="form-group has-icon-left">
-                                                    <div class="position-relative"> 
-                                                    
+                                                    <div class="position-relative">  
                                                         <select name="pengguna" class="form-select  <?= ($data['validation']->hasError('pengguna')) ? 'is-invalid' :'' ?>">
                                                             <option value="">~ Pilih Level Pengguna</option>
-                                                            <?php foreach ($data['q_auth_groups'] as $value) : ?> 
-                                                                <option value="<?=$value->id?>" <?= ($data['getusers'][0]->name == $value->name) ? 'selected' : '' ?>><?=$value->description?></option>
+                                                            <?php foreach ($data['q_auth_groups'] as $value) : ?>  
+                                                                <?php if ($data['ID'] == '101') : ?>
+                                                                    <option value="<?=$value->id?>" <?= ($data['getusers'][0]->name == $value->name) ? 'selected' : '' ?>><?=$value->description?></option>
+                                                                <?php else:?>
+                                                                    <?php if ($value->name != 'administrator') : ?>
+                                                                        <option value="<?=$value->id?>" <?= ($data['getusers'][0]->name == $value->name) ? 'selected' : '' ?>><?=$value->description?></option>
+                                                                    <?php endif;?>
+                                                                <?php endif;?>
+
                                                             <?php endforeach;?>
                                                         </select> 
                                                     </div> 
@@ -131,6 +137,20 @@ use Config\Validation;
                                                 </div>
                                             </div>
                                         </div> 
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <div class="form-group has-icon-left">
+                                                    <div>
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" id="" name="statuspress">
+                                                            <label class="form-check-label" for="">Hidupkan atau Matikan Status</label>
+                                                        </div>
+                                                    </div>    
+ 
+                                                </div>
+                                            </div>
+                                        </div>
                                         <hr class="mt-5 border-top border-primary">
                                         <div class="col-12 row "> 
                                             <div class="col-12">
