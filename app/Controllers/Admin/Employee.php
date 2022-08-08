@@ -314,7 +314,7 @@ class Employee extends BaseController
             $Employee->update($id, $data1);
 
             session()->setFlashdata('msg', 'Employee Berhasil di Perbaharui.');
-            return redirect()->to(base_url('/musers/employee'));
+            return redirect()->to(base_url('/musers/pegawai'));
 
 
     }

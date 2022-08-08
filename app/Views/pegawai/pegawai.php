@@ -20,7 +20,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
                         <li class="breadcrumb-item">Manage Users</li>
-                        <li class="breadcrumb-item">Employee</li>
+                        <li class="breadcrumb-item">Pegawai</li>
                     </ol>
                 </nav>
             </div>
@@ -35,7 +35,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             
-                            <a href="<?=base_url()?>/musers/pegawai/add" class="btn btn-primary pt-2 mb-4"><i class="bi bi-person-plus "></i> <span>Employee</span></a>
+                            <a href="<?=base_url()?>/musers/pegawai/add" class="btn btn-primary pt-2 mb-4"><i class="bi bi-person-plus "></i> <span>Pegawai</span></a>
                         
                             <table id="tableSO" class="table table-bordered" style="width:100%">
                                 <thead>

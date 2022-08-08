@@ -89,10 +89,11 @@
                 <tr>
                     <th >No</th>  
                     <th >Nama</th> 
-                    <th >Kategori<br>Cuti</th> 
+                    <th >Tipe<br>Cuti</th> 
                     <th >Tanggal<br>Pengajuan</th> 
                     <th >Tanggal<br>Berakhir</th> 
-                    <th >Deskripsi</th> 
+                    <th >Sisa Cuti<br>Tahunan</th> 
+                    <th >Keterangan</th> 
                     <th >Status</th>  
                 </tr> 
             </thead>  
@@ -102,9 +103,19 @@
                     <tr>
                         <td ><?=$no?></td>  
                         <td ><?=$value->full_name_pegawai?></td> 
-                        <td ><?=$value->nama_categori_cuti?></td> 
+                        <td >
+                            <?php
+                                if ($value->id_categori_cuti == null) {
+                                    $tipecuti = "Cuti Tahunan";
+                                }else{
+                                    $tipecuti = "Cuti Khusus";
+                                }
+                            ?>
+                            <?=$tipecuti?>
+                        </td> 
                         <td ><?=$value->tgl_pengajuan?></td> 
                         <td ><?=$value->tgl_berakhir?></td> 
+                        <td ><?=$value->sisa_cuti_tahunan?></td> 
                         <td ><?=$value->descripsi_cuti?></td> 
                         <td ><?=($value->status_cuti == 1)? '<b style="color:green">Approve</b>' : '<b style="color:red">Not Approve</b>' ?></td> 
                     </tr> 
@@ -131,7 +142,7 @@
                     // v.0.7.0 and greater
                     $x = 250;
                     $y = 810;
-                    $text = "SIPORT Page ({PAGE_NUM} of {PAGE_COUNT}) ";
+                    $text = "Cuti Online Page ({PAGE_NUM} of {PAGE_COUNT}) ";
                     $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "bold");
                     $size = 6;
                     $color = array(0,0,0);

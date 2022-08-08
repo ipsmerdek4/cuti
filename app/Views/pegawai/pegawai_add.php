@@ -16,7 +16,7 @@ use Config\Validation;
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Add Employee</h3>
+                <h3>Tambah Pegawai</h3>
                 <p class="text-subtitle text-muted">Silahkan isi Form dibawah ini dengan sebenar-benarnya.</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -24,7 +24,7 @@ use Config\Validation;
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="<?=base_url()?>/musers/employee">Manage Users</a></li>
-                        <li class="breadcrumb-item">Add Employee</li>
+                        <li class="breadcrumb-item">Tambah Pegawai</li>
                     </ol>
                 </nav>
             </div>

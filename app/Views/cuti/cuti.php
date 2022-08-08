@@ -35,15 +35,25 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-center justify-content-lg-start ">
 
-                                <a href="<?=base_url()?>/mcuti/add" class="btn btn-primary  mt-2 mt-lg-2 mb-4 me-lg-4 ">
-                                    <i class="bi bi-newspaper"></i> 
-                                    <span> Pengajuan Cuti</span>
-                                </a>
+                                <?php if (!$data['countcuti'] > 0) : ?> 
+                                    <a href="<?=base_url()?>/mcuti/add" class="btn btn-primary  mt-2 mt-lg-2 mb-4 me-lg-4 ">
+                                        <i class="bi bi-newspaper"></i> 
+                                        <span> Pengajuan Cuti</span>
+                                    </a>
+                                <?php endif; ?>
+
+                                <?= (in_groups('kplbgn') == true) ? '  
+                                    
+                                        <a href="#" class="btn btn-danger  mt-2 mt-lg-2 mb-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            <i class="bi bi-newspaper"></i> 
+                                            <span> Kategori Cuti Khusus</span>
+                                        </a>
+                                ' : '' ?> 
 
                                 <?= (in_groups('administrator') == true) ? '  
                                         <a href="#" class="btn btn-danger  mt-2 mt-lg-2 mb-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                             <i class="bi bi-newspaper"></i> 
-                                            <span> Kategori Cuti</span>
+                                            <span> Kategori Cuti Khusus</span>
                                         </a>
                                 ' : '' ?> 
                             </div>
@@ -51,11 +61,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name Employee</th> 
-                                        <th>Categori Cuti</th> 
+                                        <th>Nama Pegawai</th> 
+                                        <th>Tipe Cuti</th>   
                                         <th>Tanggal Pengajuan</th> 
                                         <th>Tanggal Berakhir</th> 
-                                        <th>Deskripsi</th>  
+                                        <th>Sisa Cuti Tahunan</th>  
+                                        <th>Keterangan</th>  
                                         <th>Status</th>
                                         <?= (in_groups('administrator') == true) ? '<th>opsi</th>' : '' ?> 
                                     </tr>
@@ -72,7 +83,7 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Kategori Cuti</h5>
+                                        <h5 class="modal-title" id="staticBackdropLabel">Kategori Cuti Khusus</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -88,9 +99,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name Kategori</th>  
-                                                    <th>Max Day Kategori</th>  
-                                                    <th>Opsi</th>
+                                                    <th>Nama Kategori</th>  
+                                                    <th>Maksimal Hari</th>  
+                                                    <th>Active</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -131,9 +142,9 @@
                                             <div class="modal-body">
 
                                                 <div class="form-group has-icon-left">
-                                                    <label for="first-name-icon">Nama Katagori</label>
+                                                    <label for="first-name-icon">Nama Kategori</label>
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control <?= ($data['validation']->hasError('nama_categori_cuti')) ? 'is-invalid' :'' ?>" placeholder="Nama Kategori" value="<?= old('nama_categori_cuti')?>" name="nama_categori_cuti">
+                                                        <input type="text" class="form-control <?= ($data['validation']->hasError('nama_categori_cuti')) ? 'is-invalid' :'' ?>" placeholder="Liburan, Hamil, dll" value="<?= old('nama_categori_cuti')?>" name="nama_categori_cuti">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-border"></i>
                                                         </div>
@@ -144,9 +155,9 @@
                                                 </div> 
 
                                                 <div class="form-group has-icon-left">
-                                                    <label for="first-name-icon">Max Day Katagori</label>
+                                                    <label for="first-name-icon">Maksimal Hari</label>
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control <?= ($data['validation']->hasError('max_categori_cuti')) ? 'is-invalid' :'' ?>" placeholder="Max Day Katagori" value="<?= old('max_categori_cuti')?>" name="max_categori_cuti">
+                                                        <input type="number" class="form-control <?= ($data['validation']->hasError('max_categori_cuti')) ? 'is-invalid' :'' ?>" placeholder="30, 90, 120, dst" value="<?= old('max_categori_cuti')?>" name="max_categori_cuti">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-calendar-date"></i>
                                                         </div>

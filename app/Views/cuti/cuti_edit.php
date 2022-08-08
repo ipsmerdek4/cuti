@@ -43,42 +43,25 @@ use Config\Validation;
                                     <div class="row">
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Name Employee </label>
-                                                <div class="form-group has-icon-left">
-                                                    <div class="position-relative"> 
-                                                        <select name="name_employee" class="form-select  <?= ($data['validation']->hasError('name_employee')) ? 'is-invalid' :'' ?>">
-                                                            <option value="">&raquo; Select Name Employee</option>
-                                                            <?php foreach ($data['getEmployee'] as $value) : ?>
-                                                                    <option value="<?=$value->id_employee ?>"  <?=($data['getCuti']->id_employee == $value->id_employee) ? 'selected' : ''?>  >&raquo; <?=$value->full_name_pegawai?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>  
-                                                    </div> 
-                                                    <small class="text-danger text-capitalize"> 
-                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('name_employee')) ?>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label>Categori Cuti </label>
+                                                <label>Pilih Cuti</label>
                                                 <div class="form-group has-icon-left ">
                                                     <div class="position-relative"> 
-                                                        <select id="nameCategory" name="nama_Kategori" class="form-select  <?= ($data['validation']->hasError('nama_Kategori')) ? 'is-invalid' :'' ?>">
-                                                            <option value="">&raquo; Select Name Categori</option>
-                                                            <?php foreach ($data['getCategoriCuti'] as $value2) : ?>
-                                                                    <option value="<?=$value2->id_categori_cuti ?>" <?=($data['getCuti']->id_categori_cuti == $value2->id_categori_cuti ) ? 'selected' : ''?>   >&raquo; <?=$value2->nama_categori_cuti?></option>
-                                                            <?php endforeach; ?>
-                                                            
+                                                        <?php
+                                                            if ($data['getCuti']->id_categori_cuti != null) {
+                                                                $pilicutis = 2; 
+                                                            }else{
+                                                                $pilicutis = 1;  
+                                                            }
+                                                        ?>
+                                                        <select id="pilcutty" name="pilcutty" class="form-select">
+                                                            <option value="">&raquo; Pilih Cuti</option>
+                                                            <option value="1" <?=($pilicutis == 1) ? 'selected' : ''?>>&raquo; Cuti Tahunan</option>
+                                                            <option value="2" <?=($pilicutis == 2) ? 'selected' : ''?>>&raquo; Cuti Khusus</option>
                                                         </select>  
-                                                    </div> 
-                                                    <small class="text-danger text-capitalize "> 
-                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('nama_Kategori')) ?>
-                                                    </small>
+                                                    </div>  
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
+                                            </div> 
+
                                             <div class="form-group">
                                                 <label>Tanggal Pengajuan</label>
                                                 <div class="form-group has-icon-left">
@@ -92,14 +75,82 @@ use Config\Validation;
                                                         <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('tanggal_pengajuan_cuti')) ?>
                                                     </small>
                                                 </div>
+                                            </div> 
+                                            <div class="form-group">
+                                                <label>Keterangan</label> 
+                                                <textarea name="deskripsi_cuti"  class="form-control <?= ($data['validation']->hasError('deskripsi_cuti')) ? 'is-invalid' :'' ?>" cols="10" rows="4" placeholder="Deskripsi"><?=$data['getCuti']->descripsi_cuti?></textarea>
+                                                <small class="text-danger text-capitalize">  
+                                                    <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('deskripsi_cuti')) ?>
+                                                </small> 
                                             </div>
-                                        </div>
+                                        </div> 
+  
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
+                                                <label>Name Pegawai </label>
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative"> 
+                                                        <select id="name_employee" name="name_employee" class="form-select  <?= ($data['validation']->hasError('name_employee')) ? 'is-invalid' :'' ?>">
+                                                            <option value="">&raquo; Select Name Employee</option>
+                                                            <?php foreach ($data['getEmployee'] as $value) : ?>
+                                                                    <option value="<?=$value->id_employee ?>" <?=($data['getCuti']->id_employee == $value->id_employee) ? 'selected' : ''?> >&raquo; <?=$value->full_name_pegawai?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>  
+                                                    </div> 
+                                                    <small class="text-danger text-capitalize"> 
+                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('name_employee')) ?>
+                                                    </small>
+                                                </div>
+                                            </div> 
+                                            
+                                            <div class="row">
+                                                <div class="form-group col" id="tahunan1">
+                                                    <label>Jumlah Cuti Tahunan </label>
+                                                    <div class="form-group has-icon-left">
+                                                        <div class="position-relative"> 
+                                                            <input  type="number" class="form-control" name="cuti_tahunan"  value="<?=$data['getCuti']->cuti_tahunan ?>"  >
+                                                            <div class="form-control-icon pb-1 mb-1">
+                                                                <i class="bi bi-calendar-check"></i>
+                                                            </div> 
+                                                        </div>  
+                                                    </div>
+                                                </div> 
+
+                                                <div class="form-group col" id="tahunan2">
+                                                    <label>Sisa Cuti Tahunan </label>
+                                                    <div class="form-group has-icon-left">
+                                                        <div class="position-relative"> 
+                                                            <input id="sisa_cuti" readonly type="text" class="form-control " name="sisa_cuti" value="<?=$data['getCuti']->sisa_cuti_tahunan ?>"    >
+                                                            <div class="form-control-icon pb-1 mb-1">
+                                                                <i class="bi bi-calendar-check"></i>
+                                                            </div> 
+                                                        </div>  
+                                                    </div>
+                                                </div> 
+                                            </div>
+
+                                            <div class="form-group" id="khusus1">
+                                                <label>Kategori Cuti Khusus</label>
+                                                <div class="form-group has-icon-left ">
+                                                    <div class="position-relative"> 
+                                                        <select id="nameCategory" name="nama_Kategori" class="form-select  <?= ($data['validation']->hasError('nama_Kategori')) ? 'is-invalid' :'' ?>">
+                                                            <option value="">&raquo; Pilih Nama Kategori</option>
+                                                            <?php foreach ($data['getCategoriCuti'] as $value2) : ?>
+                                                                    <option value="<?=$value2->id_categori_cuti ?>" <?=($data['getCuti']->id_categori_cuti == $value2->id_categori_cuti ) ? 'selected' : ''?>   >&raquo; <?=$value2->nama_categori_cuti?></option>
+                                                            <?php endforeach; ?>
+                                                            
+                                                        </select>  
+                                                    </div> 
+                                                    <small class="text-danger text-capitalize "> 
+                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('nama_Kategori')) ?>
+                                                    </small>
+                                                </div>
+                                            </div> 
+                                            <div class="form-group" id="khusus2">
                                                 <label>Lama Cuti</label>
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">  
-                                                            <input id="tgl_pengajuan" type="text" class="form-control <?= ($data['validation']->hasError('lama_cuti')) ? 'is-invalid' :'' ?>" readonly name="lama_cuti" value="<?=$data['getCuti']->max_categori_cuti?> Day" >
+                                                            <input id="tgl_pengajuan" type="text" class="form-control <?= ($data['validation']->hasError('lama_cuti')) ? 'is-invalid' :'' ?>" readonly name="lama_cuti" value="<?=(isset($data['getCuti']->max_categori_cuti))? $data['getCuti']->max_categori_cuti. " Day" : ""?>" >
                                                             <div class="form-control-icon pb-1 mb-1">
                                                                 <i class="bi bi-calendar-check"></i>
                                                             </div> 
@@ -110,15 +161,6 @@ use Config\Validation;
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label>Deskripsi</label> 
-                                                <textarea name="deskripsi_cuti"  class="form-control <?= ($data['validation']->hasError('deskripsi_cuti')) ? 'is-invalid' :'' ?>" cols="10" rows="4" placeholder="Deskripsi"><?=$data['getCuti']->descripsi_cuti?></textarea>
-                                                <small class="text-danger text-capitalize">  
-                                                    <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('deskripsi_cuti')) ?>
-                                                </small> 
-                                            </div>
-                                        </div> 
                                         <hr class="mt-5 border-top border-primary">
                                         <div class="col-12 row "> 
                                             <div class="col-12">
@@ -128,6 +170,8 @@ use Config\Validation;
 
                                         </div>
                                     </div>
+                                 
+ 
                                 </form>
                             </div>
                         </div>
@@ -168,6 +212,91 @@ use Config\Validation;
  
 
 <script>  
+
+
+
+            $(document).ready(function () {
+                <?php
+                    if ($pilicutis == 1) {
+                       echo " 
+                            $('#khusus1').hide();
+                            $('#khusus2').hide();
+                            $('#tahunan1').show();
+                            $('#tahunan2').show();
+                       ";
+                    } elseif ($pilicutis == 2) {
+                        echo " 
+                             $('#khusus1').show();
+                             $('#khusus2').show();
+                             $('#tahunan1').hide();
+                             $('#tahunan2').hide();
+                        ";
+                    }
+                    
+                ?>   
+
+            });
+
+             $('#pilcutty').on('change', function() {
+                let data = this.value ;
+                if (data == 1) {
+
+                    var conceptName = $('#name_employee').val("");
+
+                    $('#khusus1').hide();
+                    $('#khusus2').hide();
+                    $('#tahunan1').hide();
+                    $('#tahunan2').show();
+                } else {
+                    $('#khusus1').show();
+                    $('#khusus2').show();
+                    $('#tahunan1').hide();
+                    $('#tahunan2').hide();
+                }
+                
+            });
+
+
+
+
+            $('#name_employee').on('change', function() {
+                let data = this.value ;
+                if (data == "") {
+                    $('#sisa_cuti').val('0');
+                }else{ 
+                    
+                    $('#khusus1').hide();
+                    $('#khusus2').hide();
+                    $('#tahunan1').show();
+                    $('#tahunan2').show();
+                        $.ajax({
+                            type: "post",
+                            url: "/mcuti/categori/view_check",
+                            data: {data: data},
+                            dataType: "json",
+                            success: function (response2) { 
+                                $('#sisa_cuti').val(response2);
+                                if (response2 <= 0) { 
+                                        $('#tahunan1').hide();
+                                        Swal.fire({
+                                                    title: 'Warning',
+                                                    html: 'Maaf, Sisa Cuti Tahunan Anda Sudah Habis.',
+                                                    icon: 'warning', 
+                                                });
+                                }
+                            }
+                        });   
+                }
+                
+            });
+
+            
+
+
+
+
+
+
 
             $('#nameCategory').on('change', function() {
                 let data = this.value ;

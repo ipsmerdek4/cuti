@@ -84,6 +84,8 @@ $routes->get('mcuti/destroy/(:any)', 'Cuti::destroy/$1', ['filter' => 'role:admi
 $routes->post('mcuti/categori/add', 'Cuti::categori_resource', ['filter' => 'role:administrator']); 
 $routes->post('mcuti/categori/edit', 'Cuti::categori_update', ['filter' => 'role:administrator']); 
 $routes->post('mcuti/categori/view', 'Cuti::categori_view' ); 
+$routes->post('mcuti/categori/view_check', 'Cuti::categori_view_check' ); 
+
 
 /* 
 $routes->group('mazer', ['namespace' => 'App\Controllers\Mazer'], function($routes) {

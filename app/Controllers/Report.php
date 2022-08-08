@@ -32,8 +32,14 @@ class Report extends BaseController
 			  
 			$Cuti		= new ModelCuti();
 
-			$getCuti = $Cuti
+		/* 	$getCuti = $Cuti
 						->join('tbl_categori_cuti', 'tbl_categori_cuti.id_categori_cuti = tbl_cuti.id_categori_cuti')
+						->join('tbl_employee', 'tbl_employee.id_employee = tbl_cuti.id_employee')
+						->like('tgl_pengajuan', $var)
+						->findAll(); */
+
+
+			$getCuti = $Cuti
 						->join('tbl_employee', 'tbl_employee.id_employee = tbl_cuti.id_employee')
 						->like('tgl_pengajuan', $var)
 						->findAll();
@@ -66,7 +72,7 @@ class Report extends BaseController
 			}
  
 			$data = [
-				'title'             => "Laporan Cuti~".$var ,
+				'title'             => "Laporan Cuti~".$bulan.' '.$pecah[0] ,
 				'date'				=> $bulan.' '.$pecah[0],
 				'getCuti'			=> $getCuti,
 			];

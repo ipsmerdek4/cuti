@@ -326,8 +326,8 @@ class Users extends BaseController
                       ]; 
                       
                       $this->builder2->update($data1, 'id = '.$id); 
-                      $this->builder3->update(['group_id' => $pengguna], 'group_id = '.$group_id);
-
+                      
+                      $this->builder3->update(['group_id' => $pengguna], 'user_id = '.$id);
                   
                  
              }else{ 
@@ -345,8 +345,8 @@ class Users extends BaseController
                     ]; 
 
                     $this->builder2->update($data2, 'id = '.$id);
-
-                    $this->builder3->update(['group_id' => $pengguna], 'group_id = '.$group_id);
+ 
+                    $this->builder3->update(['group_id' => $pengguna], 'user_id = '.$id);
 
              } 
               

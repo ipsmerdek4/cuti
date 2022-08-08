@@ -67,7 +67,7 @@ $uri3 = $uri[3] ?? '';
                 <li class="sidebar-item <?= ($uri0 == 'report') ? 'active' : '' ?> ">
                     <a href="<?=base_url()?>/report" class='sidebar-link'>
                         <i class="bi bi-file-earmark-bar-graph"></i>    
-                        <span>Report Cuti</span>
+                        <span>Laporan Cuti</span>
                     </a>
                 </li> 
                 <?php endif; ?>  
