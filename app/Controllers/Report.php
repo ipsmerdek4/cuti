@@ -15,12 +15,22 @@ use App\Models\ModelCuti;
 class Report extends BaseController
 {
  
-
+	public function __construct()
+    {
+      $this->db = \Config\Database::connect();
+      $this->builder = $this->db->table('auth_groups');
+      $this->builder2 = $this->db->table('users');
+      $this->builder3 = $this->db->table('auth_groups_users');
+    }
 	public function index()
 	{ 
+
+		$get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
+
 		$data = [
 			'title' => 'Dashboard',
 			'in_group' => in_groups('administrator'), 
+			'get_userdata'			=> $get_userdata[0]->name_users,
 		]; 
 		return view('report', compact('data')); 
 		 

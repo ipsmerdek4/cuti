@@ -20,11 +20,14 @@ class Users extends BaseController
 
     public function index()
     {  
-        
+      $get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
+
         
       $data = [
         'title' => 'Manage Users &raquo; User',
         'in_group' => in_groups('administrator'),
+        'get_userdata'			=> $get_userdata[0]->name_users,
+
 		  ]; 
 		  return view('User/users_admin', compact('data'));  
         
@@ -234,7 +237,8 @@ class Users extends BaseController
     public function edit($id = null)
     {
       $id_users = $id;
-    
+      $get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
+
       $getUsers = $this->builder3->join('users', 'users.id = auth_groups_users.user_id') 
                                 ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
                                 ->where('users.id', $id_users)->get();
@@ -251,6 +255,7 @@ class Users extends BaseController
         'validation'    => \Config\Services::validation(),
         'getusers'      => $getUsers->getResult(),
         'ID'            => $id,
+        'get_userdata'			=> $get_userdata[0]->name_users,
       ];
       return view('User/users_admin_edit', compact('data') );  
 

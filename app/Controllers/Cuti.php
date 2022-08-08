@@ -9,6 +9,15 @@ use App\Models\ModelCuti;
 
 class Cuti extends BaseController
 {
+ 
+	public function __construct()
+    {
+      $this->db = \Config\Database::connect();
+      $this->builder = $this->db->table('auth_groups');
+      $this->builder2 = $this->db->table('users');
+      $this->builder3 = $this->db->table('auth_groups_users');
+    }
+
 	public function index()
 	{ 
 		
@@ -28,7 +37,8 @@ class Cuti extends BaseController
 		}else{
 			$countcuti = (int) 0; 
 		}
- 
+		$get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
+
 
 		session();
 		$data = [
@@ -37,6 +47,7 @@ class Cuti extends BaseController
 			'getCategoriCuti'	=> $getCategoriCuti,
 			'countcuti'			=> $countcuti,
 			'validation'		=> \Config\Services::validation(),
+			'get_userdata'			=> $get_userdata[0]->name_users,
 		]; 
 		return view('cuti/cuti', compact('data'));  
 	}
@@ -170,6 +181,7 @@ class Cuti extends BaseController
 			$getEmployee 		=  $Employee->where('id_employee', $getEmployee[0]->id_employee)->findAll(); 
 		}
 		$getCategoriCuti 	=  $CategoriCuti->where('status_categori_cuti', 1)->findAll();
+		$get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
 
 		session();
 		$data = [
@@ -178,6 +190,7 @@ class Cuti extends BaseController
 		  'validation' 		=> \Config\Services::validation(),
 		  'getEmployee' 	=> $getEmployee,
 		  'getCategoriCuti'	=> $getCategoriCuti,
+		  'get_userdata'			=> $get_userdata[0]->name_users,
 		];
  
 		return view('cuti/cuti_add', compact('data') );  
@@ -367,7 +380,8 @@ class Cuti extends BaseController
 									->first();
 		}
 
- 
+		$get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
+
 		session();
 		$data = [
 			'title'         	=> 'Edit Employee &raquo; Cuti Online',
@@ -377,6 +391,7 @@ class Cuti extends BaseController
 			'getEmployee'		=> $getEmployee,
 			'getCategoriCuti'	=> $getCategoriCuti,
 			'getCuti'			=> $getCuti ,
+			'get_userdata'			=> $get_userdata[0]->name_users,
 		];
  
 		return view('cuti/cuti_edit', compact('data') );  

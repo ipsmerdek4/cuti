@@ -9,6 +9,7 @@ class Home extends BaseController
       $this->builder = $this->db->table('auth_logins'); 
       $this->builder2 = $this->db->table('tbl_employee'); 
       $this->builder3 = $this->db->table('tbl_cuti'); 
+      $this->builder4 = $this->db->table('users'); 
     }
 
 	public function index()
@@ -18,13 +19,15 @@ class Home extends BaseController
 		$q_employee = $this->builder2->selectCount('full_name_pegawai')->get();  // Produces: SELECT * FROM mytable
 		$q_cuti = $this->builder3->selectCount('tgl_pengajuan')->like('tgl_create_dt_cuti', date('Y-m-d'))->get();  // Produces: SELECT * FROM mytable
  
-	 
+		$get_userdata =  $this->builder4->where('id', user_id())->get()->getResult();
+		 
 		$data = [
-			'title' => 'Dashboard',
-			'in_group' => in_groups('administrator'),
+			'title' 				=> 'Dashboard',
+			'in_group' 				=> in_groups('administrator'),
 			'count_login_indays'	=> $q_auth_logins,
 			'count_employee'		=> $q_employee->getResult()[0]->full_name_pegawai,
 			'count_cuti'			=> $q_cuti->getResult()[0]->tgl_pengajuan,
+			'get_userdata'			=> $get_userdata[0]->name_users,
 		];
 		  
 

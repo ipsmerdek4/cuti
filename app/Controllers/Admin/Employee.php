@@ -17,10 +17,12 @@ class Employee extends BaseController
  
     public function index()
     {  
-           
+      $get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
+
       $data = [
                         'title' => 'Manage Users &raquo; Employee',
                         'in_group' => in_groups('administrator'),
+                        'get_userdata'			=> $get_userdata[0]->name_users,
 		  ]; 
       return view('pegawai/pegawai', compact('data'));  
         
@@ -58,6 +60,7 @@ class Employee extends BaseController
     { 
           $get_user   = $this->builder2->get();  // Produces: SELECT * FROM mytable
           $q_auth_groups   = $this->builder->get();  // Produces: SELECT * FROM mytable
+          $get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
 
 
           session();
@@ -67,6 +70,7 @@ class Employee extends BaseController
             'title' => 'Add Employee &raquo; Cuti Online',
             'in_group' => in_groups('administrator'),
             'validation' => \Config\Services::validation(),
+            'get_userdata'			=> $get_userdata[0]->name_users,
           ];
 
             
@@ -248,6 +252,7 @@ class Employee extends BaseController
             $Employee       = new ModelEmployee();  
             $getemployee    = $Employee->join_where($id); 
             $get_user       = $this->builder2->get();   
+            $get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
 
              
 
@@ -259,6 +264,7 @@ class Employee extends BaseController
               'validation'    => \Config\Services::validation(), 
               'ID'            => $id,
               'get_user'      => $get_user->getResult(),
+              'get_userdata'			=> $get_userdata[0]->name_users,
             ];
             return view('pegawai/pegawai_edit', compact('data') );  
     }

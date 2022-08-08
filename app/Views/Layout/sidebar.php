@@ -27,6 +27,29 @@ $uri3 = $uri[3] ?? '';
         </div>
         <div class="sidebar-menu">
             <ul class="menu mt-0">
+
+
+            <li class="sidebar-item">
+                    <div class='sidebar-link text-primary '>  
+                        <i class="bi bi-person-square"></i>                        
+                        <span class="text-sm w-100">
+                            <?php 
+                                if (in_groups('administrator') == true) {
+                                    echo 'Administrator';
+                                } elseif (in_groups('kplbgn') == true) {
+                                    echo 'Kepala Bagian';
+                                } elseif (in_groups('pegawai') == true) {
+                                    echo 'Pegawai'; 
+                                }  
+                            ?>  
+                            <hr class="my-1">
+                            <?=$data['get_userdata']?>
+                        </span>
+                    </div>
+                </li>
+            
+
+
                 <li class="sidebar-title">Menu</li>
 
                 <li class="sidebar-item <?= ($uri0 == '') ? 'active' : '' ?> ">

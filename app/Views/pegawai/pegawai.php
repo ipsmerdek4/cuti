@@ -41,8 +41,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name Employee</th> 
-                                        <th>Number</th>
+                                        <th>Nama Pegawai</th> 
+                                        <th>Nomer HP/WhatsApp</th>
                                         <th>Jabatan</th>
                                         <th>Alamat</th>
                                         <th>opsi</th>
