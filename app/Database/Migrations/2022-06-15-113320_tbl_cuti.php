@@ -14,6 +14,7 @@ class Tbl_cuti extends Migration{
 			'tgl_berakhir'              => [ 'type' => 'DATE', ],  
 			'descripsi_cuti'            => [ 'type' => 'TEXT'  ],
             'cuti_tahunan'              => [ 'type' => 'INT', 'constraint' => 10,],   
+            'category_tahunan'          => [ 'type' => 'INT', 'constraint' => 10,],   
             'sisa_cuti_tahunan'         => [ 'type' => 'INT', 'constraint' => 10,],   
 			'status_cuti'               => [ 'type' => 'TINYINT', ],
 			'tgl_create_dt_cuti'        => [ 'type' => 'DATETIME', 'null' => true, ],   

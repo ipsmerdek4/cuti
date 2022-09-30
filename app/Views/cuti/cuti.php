@@ -101,6 +101,7 @@
                                                     <th>No</th>
                                                     <th>Nama Kategori</th>  
                                                     <th>Maksimal Hari</th>  
+                                                    <th>Maksimal Penggunaan</th>  
                                                     <th>Active</th>
                                                 </tr>
                                             </thead>
@@ -109,7 +110,8 @@
                                                     <tr>
                                                         <td><?=$no?></td>
                                                         <td><?=$value->nama_categori_cuti?></td>
-                                                        <td><?=$value->max_categori_cuti?></td>
+                                                        <td><?=$value->max_categori_cuti?> Hari</td>
+                                                        <td><?=$value->max_penggunaan_ccuti?> x/Tahun</td>
                                                         <td> 
                                                             <div class="form-check form-switch d-flex justify-content-center">
                                                                 <input class="form-check-input statuscategori" data-id="<?=$value->id_categori_cuti?>" data-sts="<?=$value->status_categori_cuti?>" type="checkbox" <?=($value->status_categori_cuti == 1) ? 'checked' : '' ?> > 
@@ -164,6 +166,19 @@
                                                     </div>
                                                     <small class="text-danger text-capitalize">  
                                                         <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('max_categori_cuti')) ?>
+                                                    </small>
+                                                </div>
+
+                                                <div class="form-group has-icon-left">
+                                                    <label for="first-name-icon">Maksimal Penggunaan</label>
+                                                    <div class="position-relative">
+                                                        <input type="number" class="form-control <?= ($data['validation']->hasError('max_penggunaan_cuti')) ? 'is-invalid' :'' ?>" placeholder="1, 5, 10, dst" value="<?= old('max_penggunaan_cuti')?>" name="max_penggunaan_cuti">
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-patch-check-fill"></i>
+                                                        </div>
+                                                    </div>
+                                                    <small class="text-danger text-capitalize">  
+                                                        <?=preg_replace("/[^a-zA-Z0-9]/", " ", $data['validation']->getError('max_penggunaan_cuti')) ?>
                                                     </small>
                                                 </div>
                                                 
@@ -241,6 +256,7 @@
                     { targets: 0, orderable: false, className: "text-center"},  
                     { targets: 1, className: "text-center"},
                     { targets: 2, className: "text-center"}, 
+                    { targets: 3, className: "text-center"}, 
                     { targets: -1, orderable: false, className: "text-center"}, 
                 ] 
             });
@@ -252,16 +268,34 @@
                 responsive: true,
                 order: [], //init datatable not ordering
                 ajax: "/mcuti/vcuti", 
+
+                columns: [
+                            {data: '0', orderable: false, className: "text-center"}, 
+                            {data: '1', orderable: false, className: "text-center"}, 
+                            {data: '7', className: "text-center"},  
+                            {data: '3', className: "text-center"},  
+                            {data: '4', className: "text-center"},  
+                            {data: '5', className: "text-center"},  
+                            {data: '6', className: "text-center"},  
+                            {data: '8', orderable: false, className: "text-center"}, 
+                            <?= (in_groups("administrator") == true) ? "{data: '9', orderable: false, className: 'text-center'}," : "" ?> 
+                             
+
+                        ], 
+
+
+
+                /* 
                 columnDefs: [
                     { targets: 0, orderable: false, className: "text-center"},  
                     { targets: 1, className: "text-center"},
-                    { targets: 2, className: "text-center"},
+                    { targets: 'nama_categori_cuti', className: "text-center"},
                     { targets: 3, className: "text-center"},
                     { targets: 4, className: "text-center"},
                     { targets: 5, className: "text-center"}, 
                     { targets: -1, orderable: false, className: "text-center"},  
                     { targets: -2, orderable: false, className: "text-center"},  
-                ] 
+                ]  */
             });
  
  

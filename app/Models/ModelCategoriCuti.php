@@ -10,6 +10,7 @@ class ModelCategoriCuti extends Model{
     protected $allowedFields = [
                                 'nama_categori_cuti',
                                 'max_categori_cuti',
+                                'max_penggunaan_ccuti',
                                 'status_categori_cuti',
                                 'tgl_create_dt_categori_cuti',
                                 'tgl_update_dt_categori_cuti', 

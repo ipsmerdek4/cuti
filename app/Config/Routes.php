@@ -86,6 +86,7 @@ $routes->post('mcuti/categori/edit', 'Cuti::categori_update', ['filter' => 'role
 $routes->post('mcuti/categori/view', 'Cuti::categori_view' ); 
 $routes->post('mcuti/categori/view_check', 'Cuti::categori_view_check' ); 
 
+$routes->post('mcuti/categori/view_khusus_check', 'Cuti::categori_khusus_view_check' ); 
 
 /* 
 $routes->group('mazer', ['namespace' => 'App\Controllers\Mazer'], function($routes) {

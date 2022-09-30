@@ -10,6 +10,7 @@ class Tbl_categori_cuti extends Migration{
             'id_categori_cuti'              => [ 'type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'auto_increment' => true ],   
 		 	'nama_categori_cuti'            => [ 'type' => 'VARCHAR', 'constraint' => 100, ],
             'max_categori_cuti'             => [ 'type' => 'INT', ],
+            'max_penggunaan_ccuti'          => [ 'type' => 'INT', ],
             'status_categori_cuti'          => [ 'type' => 'TINYINT', ],
             'tgl_create_dt_categori_cuti'   => [ 'type' => 'DATETIME', 'null' => true, ],   
 			'tgl_update_dt_categori_cuti'   => [ 'type' => 'DATETIME', 'null' => true, ],   

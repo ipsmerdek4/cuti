@@ -78,23 +78,18 @@ use Config\Validation;
                                                 </small> 
                                             </div>
                                         </div> 
-
-
-
-
-
-
-
-
-
+ 
 
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
                                                 <label>Name Pegawai </label>
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative"> 
-                                                        <select id="name_employee" name="name_employee" class="form-select  <?= ($data['validation']->hasError('name_employee')) ? 'is-invalid' :'' ?>">
+                                                        <select id="name_employee" name="name_employee" class="form-select name_employee  <?= ($data['validation']->hasError('name_employee')) ? 'is-invalid' :'' ?>">
+                                                            <?php
+                                                            if (in_groups('pegawai') == false) { ?>
                                                             <option value="">&raquo; Select Name Employee</option>
+                                                            <?php } ?>
                                                             <?php foreach ($data['getEmployee'] as $value) : ?>
                                                                     <option value="<?=$value->id_employee ?>"  <?=(old('name_employee') == $value->id_employee) ? 'selected' : ''?>  >&raquo; <?=$value->full_name_pegawai?></option>
                                                             <?php endforeach; ?>
@@ -136,11 +131,9 @@ use Config\Validation;
                                                 <label>Kategori Cuti Khusus</label>
                                                 <div class="form-group has-icon-left ">
                                                     <div class="position-relative"> 
-                                                        <select id="nameCategory" name="nama_Kategori" class="form-select  <?= ($data['validation']->hasError('nama_Kategori')) ? 'is-invalid' :'' ?>">
+                                                        <select id="nameCategory" name="nama_Kategori" class="form-select nama_Kategori <?= ($data['validation']->hasError('nama_Kategori')) ? 'is-invalid' :'' ?>">
                                                             <option value="">&raquo; Pilih Nama Kategori</option>
-                                                            <?php foreach ($data['getCategoriCuti'] as $value2) : ?>
-                                                                    <option value="<?=$value2->id_categori_cuti ?>" <?=(old('nama_Kategori') == $value2->id_categori_cuti ) ? 'selected' : ''?>   >&raquo; <?=$value2->nama_categori_cuti?></option>
-                                                            <?php endforeach; ?>
+                                                            
                                                             
                                                         </select>  
                                                     </div> 
@@ -211,61 +204,100 @@ use Config\Validation;
                 $('#khusus2').hide();
                 $('#tahunan1').hide();
                 $('#tahunan2').hide();
-
+                
+                $('#name_employee').prop('disabled', true);
             });
 
              $('#pilcutty').on('change', function() {
-                let data = this.value ;
-                if (data == 1) {
 
-                   // var conceptName = $('#name_employee').val("");
+                $('#name_employee').prop('disabled', false);
+                $("#pilcutty option[value='']").remove();
+ 
+                let datas = this.value ;
 
-                    $('#khusus1').hide();
-                    $('#khusus2').hide();
-                    $('#tahunan1').hide();
-                    $('#tahunan2').show();
+                if (datas == 1) { 
+
+                        
+                        $('#khusus1').hide();
+                        $('#khusus2').hide();
+                        $('#tahunan1').show();
+                        $('#tahunan2').show();  
+  
                 } else {
+
                     $('#khusus1').show();
                     $('#khusus2').show();
                     $('#tahunan1').hide();
                     $('#tahunan2').hide();
+
+                   
                 }
                 
             });
 
 
-
-
+    
             $('#name_employee').on('change', function() {
-                let data = this.value ;
-                if (data == "") {
-                    $('#sisa_cuti').val('0');
-                }else{ 
-                    
-                    $('#khusus1').hide();
-                    $('#khusus2').hide();
-                    $('#tahunan1').show();
-                    $('#tahunan2').show();
-                        $.ajax({
-                            type: "post",
-                            url: "/mcuti/categori/view_check",
-                            data: {data: data},
-                            dataType: "json",
-                            success: function (response2) { 
-                                $('#sisa_cuti').val(response2);
-                                if (response2 <= 0) { 
-                                        $('#tahunan1').hide();
-                                        
+
+                let datas = $('#pilcutty').val(); ;
+
+                if (datas == 1) {
+
+                    let data = this.value ; //get data cost
+
+                    if (data == "") {
+                        $('#sisa_cuti').val('0');
+                    }else{ 
+                        
+                        $('#khusus1').hide();
+                        $('#khusus2').hide();
+                        $('#tahunan1').show();
+                        $('#tahunan2').show();
+                            $.ajax({
+                                type: "post",
+                                url: "/mcuti/categori/view_check",
+                                data: {data: data},
+                                dataType: "json",
+                                success: function (response2) { 
+                                    $('#sisa_cuti').val(response2);
+                                    if (response2 <= 0) { 
+                                            $('#tahunan1').hide();
+                                            
+                                    }
                                 }
-                            }
-                        });   
+                            });   
+                    }
+ 
+
+                } else {
+
+                    $('.nama_Kategori').html(""); 
+
+                    let data = $('#name_employee').val();   
+                    $.ajax({
+                                    type: "post",
+                                    url: "/mcuti/categori/view_khusus_check",
+                                    data: {data: data},
+                                    dataType: "json",
+                                    success: function (responseZ) {
+                                        
+                                        $('.nama_Kategori').append('<option value="">&raquo; Pilih Nama Kategori</option>');
+                                        $.each(responseZ, function (indexInArray, valueOfElement) {  
+                                            if (valueOfElement['id'] != "") { 
+                                                $('.nama_Kategori').append('<option value="' + valueOfElement['id'] + '"> &raquo; ' + valueOfElement['values'] + '</option>');
+                                            } 
+                                        }); 
+                                    }
+                                });     
+
+
                 }
+
+
                 
-            });
-
-            
-
-
+            });  
+ 
+             
 
             $('#nameCategory').on('change', function() {
                 let data = this.value ;

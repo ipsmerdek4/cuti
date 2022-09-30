@@ -14,6 +14,7 @@ class ModelCuti extends Model{
                                 'tgl_berakhir',
                                 'descripsi_cuti',
                                 'cuti_tahunan',
+                                'category_tahunan',
                                 'sisa_cuti_tahunan',
                                 'status_cuti',
                                 'tgl_create_dt_cuti',

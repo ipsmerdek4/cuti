@@ -61,13 +61,15 @@ class Cuti extends BaseController
 		$db = db_connect();
 		if ((in_groups('administrator') == true)||(in_groups('kplbgn'))) {
 			$builder = $db->table('tbl_cuti')
-						->select('id_cuti, status_cuti, tbl_cuti.id_employee,  full_name_pegawai, tbl_cuti.id_categori_cuti, tgl_pengajuan, tgl_berakhir, sisa_cuti_tahunan,  descripsi_cuti, tgl_create_dt_cuti, cuti_tahunan')
 						->join('tbl_employee', 'tbl_employee.id_employee = tbl_cuti.id_employee') 
+						->join('tbl_categori_cuti', 'tbl_cuti.id_categori_cuti  = tbl_categori_cuti.id_categori_cuti')
+						->select('id_cuti, status_cuti, tbl_cuti.id_employee,  full_name_pegawai, tbl_cuti.id_categori_cuti, tgl_pengajuan, tgl_berakhir, sisa_cuti_tahunan,  descripsi_cuti, tgl_create_dt_cuti, cuti_tahunan, tbl_categori_cuti.nama_categori_cuti')
 						->orderBy('tgl_create_dt_cuti', 'DESC') ;
  		}else{ 
 			$builder = $db->table('tbl_cuti')
-						->select('id_cuti, status_cuti, tbl_cuti.id_employee, full_name_pegawai, tbl_cuti.id_categori_cuti,  tgl_pengajuan, tgl_berakhir, sisa_cuti_tahunan,  descripsi_cuti, tgl_create_dt_cuti, cuti_tahunan')
 						->join('tbl_employee', 'tbl_employee.id_employee = tbl_cuti.id_employee')
+						->join('tbl_categori_cuti', 'tbl_cuti.id_categori_cuti  = tbl_categori_cuti.id_categori_cuti')
+						->select('id_cuti, status_cuti, tbl_cuti.id_employee, full_name_pegawai, tbl_cuti.id_categori_cuti,  tgl_pengajuan, tgl_berakhir, sisa_cuti_tahunan,  descripsi_cuti, tgl_create_dt_cuti, cuti_tahunan, tbl_categori_cuti.nama_categori_cuti')
  						->where('tbl_cuti.id_employee', $getEmployee[0]->id_employee)
 						->orderBy('tgl_create_dt_cuti', 'DESC') ;
 
@@ -91,14 +93,15 @@ class Cuti extends BaseController
 								  <a id="delete" data-data="'.$row2->full_name_pegawai.'" data-id="'.$row2->id_cuti.'" href="javascript:void(0)" class="btn btn-danger pt-2 pb-1 ps-3 pe-3"><i class="bi bi-trash2"></i></a>
 							  </div>';
 				})       
-				->format('id_categori_cuti', function($value){ 
+				->format('nama_categori_cuti', function($value){ 
 					if ($value == null) {
 						 $act = "<b>Cuti Tahunan</b>";
 					}else{ 
-						$act = "<b>Cuti Khusus</b>";
+						$act = "<b>Cuti Khusus</b><br><hr class='my-1'>".$value;
 					}
  				   
-					return $act; 
+					// return $act; 
+					return $act;
 				}) 
 				->hide('status_cuti') 
 				->hide('id_cuti') 
@@ -150,7 +153,7 @@ class Cuti extends BaseController
 
 
 		$getCuti =  $Cuti->where('id_employee', $data)
-						->where('status_cuti', 1)
+						// ->where('status_cuti', 1)
 						->like('tgl_create_dt_cuti', date("Y-"))
 						->orderBy('tgl_create_dt_cuti', 'DESC') 
 						->findAll();
@@ -167,6 +170,56 @@ class Cuti extends BaseController
 
 
 
+
+	public function categori_khusus_view_check()
+	{
+		
+		$data = $this->request->getVar('data');
+		$Cuti = new ModelCuti();
+		$CategoriCuti = new ModelCategoriCuti();
+ 
+
+		$getCC = $CategoriCuti->findAll(); 
+
+
+		$dataxxx = [];
+		foreach ($getCC as  $value2) {
+			
+			$getCuti =  $Cuti->where('id_employee', $data)
+							// ->where('id_categori_cuti  !=',  null ) 
+							->where('id_categori_cuti', $value2->id_categori_cuti)
+							->like('tgl_create_dt_cuti', date("Y-"))
+							// ->groupBy('id_categori_cuti')
+							->findAll(); 
+			$ttl_ccty = 0;
+			foreach ($getCuti as $value) {
+				$ttl_ccty += $value->category_tahunan;
+			}
+			  
+			if ($ttl_ccty >= $value2->max_penggunaan_ccuti) {
+				  
+				$dataxxx[] = [
+					'id' => '',
+					'values' => '',
+				];
+			}else{
+				$dataxxx[] = [
+					'id' => $value2->id_categori_cuti,
+					'values' => $value2->nama_categori_cuti,
+				];
+			}
+				  
+		}
+
+  
+  
+		echo json_encode($dataxxx); 
+
+	}
+
+
+
+
 	public function add()
 	{ 
 		$Employee 			= new ModelEmployee();
@@ -180,8 +233,17 @@ class Cuti extends BaseController
 		}else{
 			$getEmployee 		=  $Employee->where('id_employee', $getEmployee[0]->id_employee)->findAll(); 
 		}
+		
+
+
+
 		$getCategoriCuti 	=  $CategoriCuti->where('status_categori_cuti', 1)->findAll();
+
+
+
 		$get_userdata =  $this->builder2->where('id', user_id())->get()->getResult();
+
+
 
 		session();
 		$data = [
@@ -195,6 +257,12 @@ class Cuti extends BaseController
  
 		return view('cuti/cuti_add', compact('data') );  
 	}
+
+
+
+
+
+
 
 	public function resource()
 	{
@@ -256,6 +324,7 @@ class Cuti extends BaseController
 						'tgl_berakhir'        	=> $newlama_cuti,
 						'descripsi_cuti'       	=> $deskripsi_cuti, 
 						'cuti_tahunan'       	=> $cuti_tahunan, 
+						'category_tahunan'		=> 0, 
 						'sisa_cuti_tahunan' 	=> $sisa_cuti, 
 						'status_cuti'       	=> 0, 
 						'tgl_create_dt_cuti'    => date("Y-m-d H:s:i"), 
@@ -282,6 +351,7 @@ class Cuti extends BaseController
 				'tgl_pengajuan'        	=> $tanggal_pengajuan_cuti,
 				'tgl_berakhir'        	=> $newlama_cuti,
 				'descripsi_cuti'       	=> $deskripsi_cuti, 
+				'category_tahunan'		=> 1, 
 				'cuti_tahunan'       	=> 0, 
 				'sisa_cuti_tahunan' 	=> $sisa_cuti, 
 				'status_cuti'       	=> 0, 
@@ -321,6 +391,12 @@ class Cuti extends BaseController
 								'required' => '{field} Tidak Boleh Kosong.',
 							]
 					],
+					'max_penggunaan_cuti'    =>  [
+						'ruler'   => 'required',
+						'errors'    => [
+								'required' => '{field} Tidak Boleh Kosong.',
+							]
+					],
 				])) {
 					$validation = \Config\Services::validation();  
 					return redirect()->to('/mcuti')->withInput();
@@ -330,11 +406,13 @@ class Cuti extends BaseController
 
 				$nama_categori_cuti = $this->request->getVar('nama_categori_cuti');
 				$max_categori_cuti = $this->request->getVar('max_categori_cuti');
+				$max_penggunaan_cuti = $this->request->getVar('max_penggunaan_cuti');
 
 
 				$data1 = [ 
 					'nama_categori_cuti'     		=> $nama_categori_cuti,
 					'max_categori_cuti'        		=> $max_categori_cuti,
+					'max_penggunaan_ccuti'			=> $max_penggunaan_cuti,
 					'status_categori_cuti'        	=> 1,
 					'tgl_create_dt_categori_cuti'	=> date("Y-m-d H:s:i"), 
 				];
