@@ -271,14 +271,14 @@
 
                 columns: [
                             {data: '0', orderable: false, className: "text-center"}, 
-                            {data: '1', orderable: false, className: "text-center"}, 
-                            {data: '7', className: "text-center"},  
+                            {data: '6', orderable: false, className: "text-center"}, 
+                            {data: '1', className: "text-center"},  
+                            {data: '2', className: "text-center"},  
                             {data: '3', className: "text-center"},  
                             {data: '4', className: "text-center"},  
                             {data: '5', className: "text-center"},  
-                            {data: '6', className: "text-center"},  
-                            {data: '8', orderable: false, className: "text-center"}, 
-                            <?= (in_groups("administrator") == true) ? "{data: '9', orderable: false, className: 'text-center'}," : "" ?> 
+                            {data: '7', orderable: false, className: "text-center"}, 
+                            <?= (in_groups("administrator") == true) ? "{data: '8', orderable: false, className: 'text-center'}," : "" ?> 
                              
 
                         ], 

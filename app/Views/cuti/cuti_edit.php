@@ -216,6 +216,8 @@ use Config\Validation;
 
 
             $(document).ready(function () {
+                $("#pilcutty option[value='']").remove();
+
                 <?php
                     if ($pilicutis == 1) {
                        echo " 
