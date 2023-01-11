@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Login in Days</h6>
-                                    <h6 class="font-extrabold mb-0"><?=$data['count_login_indays']?> User</h6>
+                                    <h6 class="font-extrabold mb-0"> 0 User</h6>
                                 </div>
                             </div>
                         </div>

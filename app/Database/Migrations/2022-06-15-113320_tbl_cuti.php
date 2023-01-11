@@ -21,7 +21,7 @@ class Tbl_cuti extends Migration{
 			'tgl_update_dt_cuti'        => [ 'type' => 'DATETIME', 'null' => true, ],   
         ]);
         
-        $this->forge->addPrimaryKey('id_cuti', true);        
+        $this->forge->addKey('id_cuti', true);        
         $this->forge->addForeignKey('id_employee', 'tbl_employee', 'id_employee');  
         $this->forge->addForeignKey('id_categori_cuti', 'tbl_categori_cuti', 'id_categori_cuti');  
         $this->forge->createTable('tbl_cuti');

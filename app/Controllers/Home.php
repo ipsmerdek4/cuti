@@ -15,7 +15,18 @@ class Home extends BaseController
 	public function index()
 	{
 		
-		$q_auth_logins = $this->builder->where('success', '1')->like('date', date('Y-m-d'))->groupBy('user_id')->countAllResults();  // Produces: SELECT * FROM mytable
+		$q_auth_logins = $this->builder
+								->where('success', '1')
+								->like('date', date('Y-m-d'))
+								// ->groupBy('user_id')
+								->countAllResults();  // Produces: SELECT * FROM mytable
+
+
+								// print($q_auth_logins);
+								// print("<br>");
+								// print(date('Y-m-d'));
+								// exit();
+
 		$q_employee = $this->builder2->selectCount('full_name_pegawai')->get();  // Produces: SELECT * FROM mytable
 		$q_cuti = $this->builder3->selectCount('tgl_pengajuan')->like('tgl_create_dt_cuti', date('Y-m-d'))->get();  // Produces: SELECT * FROM mytable
  

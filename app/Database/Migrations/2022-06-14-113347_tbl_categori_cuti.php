@@ -16,7 +16,7 @@ class Tbl_categori_cuti extends Migration{
 			'tgl_update_dt_categori_cuti'   => [ 'type' => 'DATETIME', 'null' => true, ],   
         ]);
         
-        $this->forge->addPrimaryKey('id_categori_cuti', true);         
+        $this->forge->addKey('id_categori_cuti', true);         
         $this->forge->createTable('tbl_categori_cuti');
     }
 
